@@ -1,0 +1,35 @@
+{
+  "name": "wood-metal-shop",
+  "version": "0.1.0",
+  "private": true,
+  "packageManager": "pnpm@8",
+  "workspaces": [
+    "apps/*",
+    "packages/*"
+  ],
+  "scripts": {
+    "dev": "turbo dev",
+    "build": "turbo build",
+    "lint": "turbo lint",
+    "test": "turbo test",
+    "format": "prettier --write ."
+  },
+  "devDependencies": {
+    "@types/node": "^22.13.4",
+    "prettier": "^3.2.5",
+    "prettier-plugin-tailwindcss": "^0.5.11",
+    "turbo": "^1.11.3"
+  },
+  "pnpm": {
+    "packageImportMethod": "hoisted",
+    "onlyBuiltDependencies": [
+      "@prisma/client",
+      "@prisma/engines",
+      "core-js",
+      "esbuild",
+      "prisma",
+      "protobufjs",
+      "unrs-resolver"
+    ]
+  }
+}

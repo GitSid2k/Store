@@ -1,0 +1,20 @@
+{
+  "name": "@wood-metal/config",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "exports": {
+    "./tsconfig/base.json": "./tsconfig/base.json",
+    "./tailwind.preset": {
+      "types": "./tailwind/tailwind.preset.d.ts",
+      "default": "./tailwind/tailwind.preset.js"
+    },
+    "./eslint": "./eslint/.eslintrc.cjs",
+    "./prettier": "./prettier/index.cjs"
+  },
+  "typesVersions": {
+    "*": {
+      "tailwind.preset": ["./tailwind/tailwind.preset.d.ts"]
+    }
+  }
+}

@@ -1,0 +1,415 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* ─── Design-plan exact tokens ──────────────────────────── */
+:root {
+  --ink: #0F0E0C;
+  --paper: #FAFAF7;
+  --gold: #9A7A3A;
+  --gold-light: #C4A052;
+  --gold-pale: #F5EDD8;
+  --warm-gray: #E8E4DC;
+  --mid: #8A8070;
+  --line: #D8D2C4;
+
+  --font-display: "Cormorant Garamond", serif;
+  --font-body: "Jost", sans-serif;
+}
+
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  font-family: var(--font-body);
+  background: var(--paper);
+  color: var(--ink);
+  font-weight: 300;
+  font-size: 19.5px;
+  line-height: 1.7;
+  cursor: none;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* Grain overlay — exact from design plan */
+body::before {
+  content: '';
+  position: fixed;
+  inset: 0;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.04'/%3E%3C/svg%3E");
+  pointer-events: none;
+  z-index: 1000;
+  opacity: 0.4;
+}
+
+/* ─── Custom cursor ─────────────────────────────────────── */
+.cursor-dot {
+  position: fixed;
+  width: 8px;
+  height: 8px;
+  background: var(--gold);
+  border-radius: 50%;
+  pointer-events: none;
+  z-index: 9999;
+  transform: translate(-50%, -50%);
+  transition: transform 0.1s, width 0.3s, height 0.3s, background 0.3s;
+}
+
+.cursor-ring {
+  position: fixed;
+  width: 36px;
+  height: 36px;
+  border: 1px solid var(--gold);
+  border-radius: 50%;
+  pointer-events: none;
+  z-index: 9998;
+  transform: translate(-50%, -50%);
+  transition: transform 0.12s ease-out, width 0.3s, height 0.3s, opacity 0.3s;
+  opacity: 0.5;
+}
+
+/* ─── Transitions ───────────────────────────────────────── */
+a, button {
+  transition: color 0.2s, background 0.2s, border-color 0.2s, box-shadow 0.3s, transform 0.3s;
+}
+
+/* ─── Container ─────────────────────────────────────────── */
+.container-wide {
+  width: 100%;
+  max-width: 1440px;
+  margin-left: auto;
+  margin-right: auto;
+  padding-left: 60px;
+  padding-right: 60px;
+}
+
+@media (max-width: 768px) {
+  .container-wide {
+    padding-left: 24px;
+    padding-right: 24px;
+  }
+}
+
+/* ─── Section base — exact from plan ───────────────────── */
+.section-base {
+  padding: 120px 60px;
+  border-top: 1px solid var(--line);
+  position: relative;
+}
+
+@media (max-width: 768px) {
+  .section-base {
+    padding: 80px 24px;
+  }
+}
+
+/* ─── Section header — exact 2-col grid from plan ──────── */
+.section-header {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 80px;
+  margin-bottom: 80px;
+  align-items: end;
+}
+
+@media (max-width: 768px) {
+  .section-header {
+    grid-template-columns: 1fr;
+    gap: 24px;
+    margin-bottom: 40px;
+  }
+}
+
+/* ─── Marquee ───────────────────────────────────────────── */
+.marquee-container {
+  overflow: hidden;
+  width: 100%;
+}
+
+.marquee {
+  display: inline-flex;
+  gap: 3rem;
+  animation: marquee 18s linear infinite;
+  width: max-content;
+  white-space: nowrap;
+}
+
+/* ─── Writing-mode utility ──────────────────────────────── */
+.writing-mode-vertical {
+  writing-mode: vertical-rl;
+}
+
+/* ─── Pull-quote — exact from plan ─────────────────────── */
+.pull-quote {
+  font-family: var(--font-display);
+  font-size: clamp(28.6px, 3.9vw, 46.8px);
+  font-style: italic;
+  font-weight: 300;
+  color: var(--gold);
+  line-height: 1.4;
+  border-left: 2px solid var(--gold);
+  padding: 8px 0 8px 40px;
+  margin: 60px 0;
+  max-width: 600px;
+}
+
+/* ─── Card Quick View reveal ────────────────────────────── */
+article:hover .card-quick-view {
+  opacity: 1 !important;
+  transform: translateX(-50%) translateY(0) !important;
+}
+
+/* ─── Nav link gold hover ────────────────────────────────── */
+.hover-gold-link:hover {
+  color: var(--gold) !important;
+}
+
+/* ─── Focus visible ─────────────────────────────────────── */
+:focus-visible {
+  outline: 2px solid var(--gold);
+  outline-offset: 3px;
+}
+
+/* ─── Skeleton pulse ────────────────────────────────────── */
+.skeleton {
+  background: var(--warm-gray);
+  animation: pulse 1.6s ease-in-out infinite;
+}
+
+/* ─── Responsive product grid ───────────────────────────── */
+.product-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 24px;
+}
+
+@media (max-width: 1200px) {
+  .product-grid {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+@media (max-width: 768px) {
+  .product-grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 16px;
+  }
+}
+
+@media (max-width: 480px) {
+  .product-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* ─── Keyframes ─────────────────────────────────────────── */
+@keyframes spin {
+  to { transform: rotate(360deg); }
+}
+
+@keyframes marquee {
+  0%   { transform: translateX(0); }
+  100% { transform: translateX(-50%); }
+}
+
+@keyframes fadeSlideUp {
+  from { opacity: 0; transform: translateY(30px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes fadeSlideRight {
+  from { opacity: 0; transform: translateX(-20px); }
+  to   { opacity: 1; transform: translateX(0); }
+}
+
+@keyframes scrollPulse {
+  0%, 100% { opacity: 1; transform: scaleY(1); }
+  50%       { opacity: 0.3; transform: scaleY(0.7); transform-origin: top; }
+}
+
+@keyframes pulse {
+  0%, 100% { opacity: 1; }
+  50%       { opacity: 0.45; }
+}
+
+@keyframes skeletonPulse {
+  0%, 100% { opacity: 1; }
+  50%       { opacity: 0.4; }
+}
+
+/* ── Responsive ── */
+.mobile-hamburger { display: none; }
+
+@media (max-width: 768px) {
+  .desktop-nav { display: none !important; }
+  .mobile-hamburger { display: flex !important; }
+
+  /* Nav padding on mobile */
+  .site-nav {
+    padding: 20px 24px !important;
+  }
+}
+
+@media (max-width: 640px) {
+  /* product grid → 1 col */
+  .product-grid {
+    grid-template-columns: 1fr !important;
+  }
+}
+
+@media (max-width: 900px) {
+  /* catalog sidebar → stack */
+  .catalog-layout {
+    grid-template-columns: 1fr !important;
+  }
+
+  /* footer → 2 col */
+  .footer-grid {
+    grid-template-columns: 1fr 1fr !important;
+    gap: 32px !important;
+    padding: 48px 24px 32px !important;
+  }
+
+  /* product page */
+  .product-layout {
+    grid-template-columns: 1fr !important;
+    padding: 24px !important;
+  }
+}
+
+@media (max-width: 600px) {
+  .footer-grid {
+    grid-template-columns: 1fr !important;
+  }
+
+  .about-grid {
+    grid-template-columns: 1fr !important;
+  }
+}
+
+@media (max-width: 768px) {
+  .catalog-hero {
+    padding: 120px 24px 48px !important;
+  }
+
+  .catalog-hero-grid {
+    grid-template-columns: 1fr !important;
+    gap: 24px !important;
+  }
+
+  .catalog-filter-form {
+    grid-template-columns: 1fr 1fr !important;
+    gap: 16px !important;
+  }
+
+  .catalog-grid-wrap {
+    padding: 40px 24px !important;
+  }
+}
+
+@media (max-width: 480px) {
+  .catalog-filter-form {
+    grid-template-columns: 1fr !important;
+  }
+}
+
+@media (max-width: 860px) {
+  .cart-layout {
+    grid-template-columns: 1fr !important;
+  }
+
+  .contacts-grid {
+    grid-template-columns: 1fr !important;
+    gap: 48px !important;
+  }
+
+  .collections-row {
+    grid-template-columns: 1fr !important;
+  }
+
+  .checkout-layout {
+    grid-template-columns: 1fr !important;
+  }
+}
+
+@media (max-width: 900px) {
+  .section-header {
+    grid-template-columns: 1fr !important;
+    gap: 24px !important;
+    margin-bottom: 48px !important;
+  }
+
+  .materials-grid {
+    grid-template-columns: 1fr 1fr !important;
+  }
+
+  .ugc-grid {
+    grid-template-columns: 1fr 1fr !important;
+  }
+
+  .spotlight-grid {
+    grid-template-columns: 1fr 1fr !important;
+  }
+}
+
+@media (max-width: 560px) {
+  .materials-grid {
+    grid-template-columns: 1fr !important;
+  }
+
+  .ugc-grid {
+    grid-template-columns: 1fr 1fr !important;
+  }
+}
+
+@media (max-width: 768px) {
+  .hero-section {
+    padding: 80px 24px 60px !important;
+  }
+
+  .home-section {
+    padding: 64px 24px !important;
+  }
+
+  .account-layout {
+    grid-template-columns: 1fr !important;
+    padding: 24px 24px 60px !important;
+    gap: 32px !important;
+  }
+
+  .breadcrumb-bar {
+    padding: 100px 24px 0 !important;
+  }
+
+  .collections-wrap {
+    padding: 0 24px 80px !important;
+  }
+
+  .collections-row > div {
+    padding: 0 !important;
+    order: 0 !important;
+  }
+
+  .horizontal-scroll-header {
+    padding: 64px 24px 24px !important;
+  }
+
+  .horizontal-scroll-track {
+    padding: 20px 24px 80px !important;
+  }
+
+  .collection-hero-content {
+    padding: 64px 24px !important;
+  }
+
+  .collection-grid {
+    padding: 40px 24px !important;
+  }
+}

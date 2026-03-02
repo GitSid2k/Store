@@ -1,0 +1,1552 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Wood & Metal — Design Plan</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400&family=Jost:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --ink: #0F0E0C;
+    --paper: #FAFAF7;
+    --gold: #9A7A3A;
+    --gold-light: #C4A052;
+    --gold-pale: #F5EDD8;
+    --warm-gray: #E8E4DC;
+    --mid: #8A8070;
+    --line: #D8D2C4;
+  }
+
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    font-family: 'Jost', sans-serif;
+    background: var(--paper);
+    color: var(--ink);
+    font-weight: 300;
+    font-size: 15px;
+    line-height: 1.7;
+    cursor: none;
+  }
+
+  /* Custom cursor */
+  .cursor {
+    position: fixed;
+    width: 8px; height: 8px;
+    background: var(--gold);
+    border-radius: 50%;
+    pointer-events: none;
+    z-index: 9999;
+    transform: translate(-50%, -50%);
+    transition: transform 0.1s, width 0.3s, height 0.3s, background 0.3s;
+  }
+  .cursor-ring {
+    position: fixed;
+    width: 36px; height: 36px;
+    border: 1px solid var(--gold);
+    border-radius: 50%;
+    pointer-events: none;
+    z-index: 9998;
+    transform: translate(-50%, -50%);
+    transition: transform 0.12s ease-out, width 0.3s, height 0.3s, opacity 0.3s;
+    opacity: 0.5;
+  }
+  body:has(a:hover) .cursor, body:has(button:hover) .cursor { width: 16px; height: 16px; }
+  body:has(a:hover) .cursor-ring, body:has(button:hover) .cursor-ring { width: 56px; height: 56px; opacity: 0.2; }
+
+  /* Grain overlay */
+  body::before {
+    content: '';
+    position: fixed;
+    inset: 0;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.04'/%3E%3C/svg%3E");
+    pointer-events: none;
+    z-index: 1000;
+    opacity: 0.4;
+  }
+
+  /* Navigation */
+  nav {
+    position: fixed;
+    top: 0; left: 0; right: 0;
+    z-index: 900;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 24px 60px;
+    background: rgba(250,250,247,0.88);
+    backdrop-filter: blur(12px);
+    border-bottom: 1px solid var(--line);
+  }
+  .nav-brand {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 18px;
+    font-weight: 500;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--ink);
+    text-decoration: none;
+  }
+  .nav-links {
+    display: flex;
+    gap: 40px;
+    list-style: none;
+  }
+  .nav-links a {
+    font-size: 11px;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--mid);
+    text-decoration: none;
+    transition: color 0.2s;
+  }
+  .nav-links a:hover { color: var(--gold); }
+
+  /* Hero */
+  .hero {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    padding: 0 60px 80px;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .hero-bg {
+    position: absolute;
+    inset: 0;
+    background:
+      radial-gradient(ellipse 80% 60% at 70% 40%, rgba(154,122,58,0.08) 0%, transparent 60%),
+      radial-gradient(ellipse 60% 80% at 20% 70%, rgba(15,14,12,0.04) 0%, transparent 50%),
+      var(--paper);
+  }
+
+  .hero-lines {
+    position: absolute;
+    inset: 0;
+    background-image:
+      linear-gradient(var(--line) 1px, transparent 1px),
+      linear-gradient(90deg, var(--line) 1px, transparent 1px);
+    background-size: 80px 80px;
+    opacity: 0.3;
+    mask-image: radial-gradient(ellipse 90% 90% at 50% 50%, black 30%, transparent 80%);
+  }
+
+  .hero-number {
+    position: absolute;
+    top: 140px; right: 60px;
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 220px;
+    font-weight: 300;
+    color: transparent;
+    -webkit-text-stroke: 1px var(--line);
+    line-height: 1;
+    user-select: none;
+    animation: fadeSlideUp 1.2s ease-out both;
+  }
+
+  .hero-content {
+    position: relative;
+    max-width: 800px;
+    animation: fadeSlideUp 1s 0.2s ease-out both;
+  }
+  .hero-label {
+    font-size: 10px;
+    letter-spacing: 0.3em;
+    text-transform: uppercase;
+    color: var(--gold);
+    margin-bottom: 24px;
+    display: flex;
+    align-items: center;
+    gap: 16px;
+  }
+  .hero-label::before {
+    content: '';
+    display: block;
+    width: 40px;
+    height: 1px;
+    background: var(--gold);
+  }
+  h1 {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: clamp(52px, 7vw, 96px);
+    font-weight: 300;
+    line-height: 1.02;
+    letter-spacing: -0.02em;
+    color: var(--ink);
+    margin-bottom: 32px;
+  }
+  h1 em { font-style: italic; color: var(--gold); }
+  .hero-desc {
+    font-size: 15px;
+    color: var(--mid);
+    max-width: 480px;
+    line-height: 1.8;
+  }
+
+  .hero-scroll {
+    position: absolute;
+    bottom: 80px;
+    right: 60px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 12px;
+    animation: fadeSlideUp 1s 0.6s ease-out both;
+  }
+  .hero-scroll span {
+    font-size: 9px;
+    letter-spacing: 0.25em;
+    text-transform: uppercase;
+    color: var(--mid);
+    writing-mode: vertical-rl;
+  }
+  .scroll-line {
+    width: 1px;
+    height: 60px;
+    background: linear-gradient(to bottom, var(--gold), transparent);
+    animation: scrollPulse 2s ease-in-out infinite;
+  }
+
+  /* Sections */
+  section {
+    padding: 120px 60px;
+    border-top: 1px solid var(--line);
+    position: relative;
+  }
+
+  .section-header {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 80px;
+    margin-bottom: 80px;
+    align-items: end;
+  }
+
+  .section-num {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 11px;
+    letter-spacing: 0.25em;
+    color: var(--gold);
+    text-transform: uppercase;
+    margin-bottom: 20px;
+  }
+
+  h2 {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: clamp(36px, 4vw, 54px);
+    font-weight: 300;
+    line-height: 1.1;
+    letter-spacing: -0.01em;
+  }
+  h2 em { font-style: italic; color: var(--gold); }
+
+  .section-intro {
+    color: var(--mid);
+    line-height: 1.9;
+    font-size: 15px;
+    align-self: end;
+    padding-bottom: 4px;
+  }
+
+  h3 {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 22px;
+    font-weight: 500;
+    letter-spacing: 0.02em;
+    margin-bottom: 16px;
+    color: var(--ink);
+  }
+
+  /* Color palette */
+  .palette-grid {
+    display: grid;
+    grid-template-columns: repeat(6, 1fr);
+    gap: 0;
+    border: 1px solid var(--line);
+    overflow: hidden;
+    border-radius: 2px;
+    margin-bottom: 60px;
+  }
+  .swatch {
+    aspect-ratio: 1;
+    position: relative;
+    cursor: pointer;
+    transition: transform 0.3s ease;
+  }
+  .swatch:hover { transform: scaleY(1.05); transform-origin: bottom; z-index: 2; }
+  .swatch-label {
+    position: absolute;
+    bottom: 0; left: 0; right: 0;
+    padding: 12px 10px 10px;
+    font-size: 9px;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    background: linear-gradient(transparent, rgba(0,0,0,0.4));
+    color: white;
+    opacity: 0;
+    transition: opacity 0.2s;
+  }
+  .swatch:hover .swatch-label { opacity: 1; }
+  .swatch.light .swatch-label { background: linear-gradient(transparent, rgba(0,0,0,0.12)); color: var(--ink); }
+
+  /* Typography specimens */
+  .type-specimen {
+    border: 1px solid var(--line);
+    padding: 48px;
+    margin-bottom: 24px;
+    position: relative;
+    background: white;
+    transition: box-shadow 0.3s;
+  }
+  .type-specimen:hover { box-shadow: 0 8px 40px rgba(0,0,0,0.06); }
+  .type-tag {
+    position: absolute;
+    top: 20px; right: 20px;
+    font-size: 9px;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--mid);
+  }
+  .specimen-display {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 64px;
+    font-weight: 300;
+    line-height: 1;
+    letter-spacing: -0.02em;
+    margin-bottom: 8px;
+  }
+  .specimen-heading {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 38px;
+    font-weight: 400;
+    line-height: 1.15;
+    margin-bottom: 8px;
+  }
+  .specimen-ui {
+    font-family: 'Jost', sans-serif;
+    font-size: 16px;
+    font-weight: 300;
+    line-height: 1.7;
+    color: var(--mid);
+  }
+  .specimen-meta {
+    font-size: 11px;
+    color: var(--line);
+    margin-top: 16px;
+    font-family: 'Jost', sans-serif;
+    letter-spacing: 0.05em;
+  }
+
+  /* Page wireframes */
+  .wireframe-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 24px;
+  }
+  .wireframe-card {
+    border: 1px solid var(--line);
+    background: white;
+    cursor: pointer;
+    transition: all 0.35s ease;
+    position: relative;
+    overflow: hidden;
+  }
+  .wireframe-card:hover {
+    border-color: var(--gold);
+    box-shadow: 0 16px 48px rgba(0,0,0,0.08);
+    transform: translateY(-4px);
+  }
+  .wireframe-preview {
+    aspect-ratio: 3/4;
+    padding: 20px;
+    background: var(--paper);
+    border-bottom: 1px solid var(--line);
+    position: relative;
+    overflow: hidden;
+  }
+  .wf-info {
+    padding: 20px 24px;
+  }
+  .wf-title {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 18px;
+    font-weight: 500;
+    margin-bottom: 6px;
+  }
+  .wf-desc {
+    font-size: 12px;
+    color: var(--mid);
+    line-height: 1.6;
+  }
+  .wireframe-card .badge {
+    position: absolute;
+    top: 14px; right: 14px;
+    background: var(--gold-pale);
+    color: var(--gold);
+    font-size: 9px;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    padding: 4px 10px;
+  }
+
+  /* Wireframe SVG elements */
+  .wf-nav { height: 20px; background: var(--ink); margin-bottom: 12px; opacity: 0.06; }
+  .wf-hero { background: var(--warm-gray); margin-bottom: 8px; display: flex; align-items: flex-end; padding: 12px; position: relative; overflow: hidden; }
+  .wf-hero::before { content: ''; position: absolute; inset: 0; background: linear-gradient(135deg, transparent 40%, rgba(154,122,58,0.15) 100%); }
+  .wf-block { background: var(--warm-gray); margin-bottom: 6px; }
+  .wf-text { background: var(--line); height: 6px; margin-bottom: 4px; opacity: 0.7; border-radius: 2px; }
+  .wf-text.short { width: 60%; }
+  .wf-text.medium { width: 80%; }
+  .wf-grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 6px; margin-bottom: 6px; }
+  .wf-grid-3 { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 4px; margin-bottom: 6px; }
+  .wf-img { background: var(--warm-gray); aspect-ratio: 1; }
+  .wf-btn { height: 20px; width: 80px; background: var(--ink); opacity: 0.08; }
+  .wf-sidebar { display: grid; grid-template-columns: 1fr 2fr; gap: 6px; }
+  .wf-label { font-size: 7px; letter-spacing: 0.1em; text-transform: uppercase; color: var(--mid); position: relative; z-index: 1; font-family: 'Jost', sans-serif; }
+
+  /* Phases timeline */
+  .timeline {
+    position: relative;
+    padding-left: 40px;
+  }
+  .timeline::before {
+    content: '';
+    position: absolute;
+    left: 0; top: 12px; bottom: 12px;
+    width: 1px;
+    background: linear-gradient(to bottom, var(--gold), var(--line), var(--line));
+  }
+  .phase {
+    position: relative;
+    margin-bottom: 56px;
+    opacity: 0;
+    animation: fadeSlideRight 0.6s ease-out forwards;
+  }
+  .phase:nth-child(1) { animation-delay: 0.1s; }
+  .phase:nth-child(2) { animation-delay: 0.2s; }
+  .phase:nth-child(3) { animation-delay: 0.3s; }
+  .phase:nth-child(4) { animation-delay: 0.4s; }
+  .phase:nth-child(5) { animation-delay: 0.5s; }
+
+  .phase-dot {
+    position: absolute;
+    left: -46px;
+    top: 10px;
+    width: 12px; height: 12px;
+    border-radius: 50%;
+    border: 1px solid var(--gold);
+    background: var(--paper);
+    box-shadow: 0 0 0 4px var(--paper);
+  }
+  .phase:nth-child(1) .phase-dot { background: var(--gold); }
+
+  .phase-header {
+    display: flex;
+    align-items: baseline;
+    gap: 20px;
+    margin-bottom: 12px;
+  }
+  .phase-num {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 13px;
+    color: var(--gold);
+    letter-spacing: 0.1em;
+  }
+  .phase-name {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 24px;
+    font-weight: 500;
+  }
+  .phase-time {
+    margin-left: auto;
+    font-size: 11px;
+    color: var(--mid);
+    letter-spacing: 0.08em;
+    border: 1px solid var(--line);
+    padding: 4px 14px;
+  }
+  .phase-tasks {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+    gap: 8px;
+  }
+  .task {
+    display: flex;
+    align-items: flex-start;
+    gap: 10px;
+    font-size: 13px;
+    color: var(--mid);
+    padding: 10px 14px;
+    background: white;
+    border: 1px solid var(--line);
+    transition: border-color 0.2s, color 0.2s;
+  }
+  .task:hover { border-color: var(--gold); color: var(--ink); }
+  .task-icon {
+    color: var(--gold);
+    flex-shrink: 0;
+    font-size: 14px;
+    margin-top: 1px;
+  }
+  .task-active { border-color: var(--gold); color: var(--ink); background: var(--gold-pale); }
+
+  /* Recommendations grid */
+  .recs-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 2px;
+    background: var(--line);
+    border: 1px solid var(--line);
+  }
+  .rec-card {
+    background: var(--paper);
+    padding: 40px;
+    transition: background 0.3s;
+    cursor: default;
+  }
+  .rec-card:hover { background: white; }
+  .rec-icon {
+    width: 40px; height: 40px;
+    border: 1px solid var(--line);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 18px;
+    margin-bottom: 20px;
+    color: var(--gold);
+  }
+  .rec-title {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 20px;
+    font-weight: 500;
+    margin-bottom: 10px;
+  }
+  .rec-text {
+    font-size: 13px;
+    color: var(--mid);
+    line-height: 1.8;
+  }
+  .rec-tips {
+    margin-top: 16px;
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+  }
+  .rec-tip {
+    font-size: 12px;
+    color: var(--ink);
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+  .rec-tip::before {
+    content: '';
+    display: block;
+    width: 20px;
+    height: 1px;
+    background: var(--gold);
+    flex-shrink: 0;
+  }
+
+  /* Tools section */
+  .tools-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 16px;
+  }
+  .tool-card {
+    border: 1px solid var(--line);
+    padding: 28px 24px;
+    background: white;
+    transition: all 0.3s;
+    text-decoration: none;
+    color: inherit;
+    display: block;
+  }
+  .tool-card:hover {
+    border-color: var(--gold);
+    transform: translateY(-3px);
+    box-shadow: 0 8px 32px rgba(0,0,0,0.06);
+  }
+  .tool-name {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 18px;
+    font-weight: 500;
+    margin-bottom: 4px;
+  }
+  .tool-role {
+    font-size: 10px;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--gold);
+    margin-bottom: 12px;
+  }
+  .tool-desc {
+    font-size: 12px;
+    color: var(--mid);
+    line-height: 1.7;
+  }
+
+  /* Checklist */
+  .checklist {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 0;
+    border: 1px solid var(--line);
+  }
+  .check-group {
+    padding: 40px;
+    border-right: 1px solid var(--line);
+    border-bottom: 1px solid var(--line);
+  }
+  .check-group:nth-child(even) { border-right: none; }
+  .check-group:nth-last-child(-n+2) { border-bottom: none; }
+  .check-group-title {
+    font-size: 10px;
+    letter-spacing: 0.25em;
+    text-transform: uppercase;
+    color: var(--gold);
+    margin-bottom: 20px;
+  }
+  .check-item {
+    display: flex;
+    align-items: flex-start;
+    gap: 12px;
+    margin-bottom: 12px;
+    font-size: 13px;
+    color: var(--mid);
+    cursor: pointer;
+    transition: color 0.2s;
+  }
+  .check-item:hover { color: var(--ink); }
+  .check-box {
+    width: 16px; height: 16px;
+    border: 1px solid var(--line);
+    flex-shrink: 0;
+    margin-top: 2px;
+    transition: all 0.2s;
+    position: relative;
+  }
+  .check-item:hover .check-box { border-color: var(--gold); }
+  .check-item.done .check-box {
+    background: var(--gold);
+    border-color: var(--gold);
+  }
+  .check-item.done .check-box::after {
+    content: '✓';
+    position: absolute;
+    inset: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    font-size: 9px;
+  }
+  .check-item.done { color: var(--ink); text-decoration: line-through; opacity: 0.5; }
+
+  /* Footer */
+  footer {
+    border-top: 1px solid var(--line);
+    padding: 60px;
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 40px;
+    align-items: center;
+  }
+  .footer-brand {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 22px;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+  }
+  .footer-note {
+    font-size: 12px;
+    color: var(--mid);
+    line-height: 1.8;
+  }
+  .footer-version {
+    text-align: right;
+    font-size: 11px;
+    color: var(--line);
+    letter-spacing: 0.1em;
+  }
+
+  /* Animations */
+  @keyframes fadeSlideUp {
+    from { opacity: 0; transform: translateY(30px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+  @keyframes fadeSlideRight {
+    from { opacity: 0; transform: translateX(-20px); }
+    to { opacity: 1; transform: translateX(0); }
+  }
+  @keyframes scrollPulse {
+    0%, 100% { opacity: 1; transform: scaleY(1); }
+    50% { opacity: 0.3; transform: scaleY(0.7); transform-origin: top; }
+  }
+
+  /* Separator ornament */
+  .ornament {
+    text-align: center;
+    color: var(--gold);
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 24px;
+    margin: 0;
+    padding: 0;
+    opacity: 0.4;
+    letter-spacing: 0.3em;
+  }
+
+  .pull-quote {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: clamp(22px, 3vw, 36px);
+    font-style: italic;
+    font-weight: 300;
+    color: var(--gold);
+    line-height: 1.4;
+    border-left: 2px solid var(--gold);
+    padding: 8px 0 8px 40px;
+    margin: 60px 0;
+    max-width: 600px;
+  }
+
+  .two-col { display: grid; grid-template-columns: 1fr 1fr; gap: 60px; }
+  .three-col { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 40px; }
+
+  /* Spacing tokens visual */
+  .spacing-row {
+    display: flex;
+    align-items: flex-end;
+    gap: 16px;
+    margin-bottom: 24px;
+  }
+  .spacing-block {
+    background: var(--gold);
+    opacity: 0.6;
+    flex-shrink: 0;
+  }
+  .spacing-info { font-size: 12px; color: var(--mid); }
+  .spacing-name { font-family: 'Cormorant Garamond', serif; font-size: 16px; color: var(--ink); }
+</style>
+</head>
+<body>
+
+<div class="cursor" id="cursor"></div>
+<div class="cursor-ring" id="cursorRing"></div>
+
+<!-- Navigation -->
+<nav>
+  <a class="nav-brand" href="#">W&M Design</a>
+  <ul class="nav-links">
+    <li><a href="#colors">Цвета</a></li>
+    <li><a href="#typography">Типографика</a></li>
+    <li><a href="#pages">Страницы</a></li>
+    <li><a href="#phases">Фазы</a></li>
+    <li><a href="#tools">Инструменты</a></li>
+    <li><a href="#checklist">Чеклист</a></li>
+  </ul>
+</nav>
+
+<!-- Hero -->
+<section class="hero" style="border: none; padding-top: 0;">
+  <div class="hero-bg"></div>
+  <div class="hero-lines"></div>
+  <div class="hero-number">01</div>
+  <div class="hero-content">
+    <div class="hero-label">Wood & Metal Shop · Design System</div>
+    <h1>Дизайн<br>как <em>философия</em><br>пространства</h1>
+    <p class="hero-desc">
+      Полный план создания визуального языка для интернет-магазина премиальной мебели. 
+      От токенов цвета до анимированных переходов между страницами.
+    </p>
+  </div>
+  <div class="hero-scroll">
+    <div class="scroll-line"></div>
+    <span>Прокрути</span>
+  </div>
+</section>
+
+<!-- Colors -->
+<section id="colors">
+  <div class="section-header">
+    <div>
+      <div class="section-num">01 — Цветовая система</div>
+      <h2>Палитра,<br>рождённая из <em>материала</em></h2>
+    </div>
+    <p class="section-intro">
+      Цвета не придумываются — они берутся из физического мира. 
+      Белизна бумаги, теплота дуба, холод металла, чернота тени на дереве.
+      Четыре роли, шесть оттенков, ноль случайных решений.
+    </p>
+  </div>
+
+  <div class="palette-grid">
+    <div class="swatch" style="background:#0F0E0C;">
+      <div class="swatch-label">Ink #0F0E0C · Тексты</div>
+    </div>
+    <div class="swatch" style="background:#9A7A3A;">
+      <div class="swatch-label">Gold #9A7A3A · Акцент</div>
+    </div>
+    <div class="swatch" style="background:#C4A052;">
+      <div class="swatch-label">Gold Light #C4A052 · Hover</div>
+    </div>
+    <div class="swatch light" style="background:#F5EDD8;">
+      <div class="swatch-label">Gold Pale #F5EDD8 · Фоны</div>
+    </div>
+    <div class="swatch light" style="background:#E8E4DC;">
+      <div class="swatch-label">Warm Gray #E8E4DC · Skeleton</div>
+    </div>
+    <div class="swatch light" style="background:#FAFAF7; border: 1px solid #E8E4DC;">
+      <div class="swatch-label">Paper #FAFAF7 · Основной фон</div>
+    </div>
+  </div>
+
+  <div class="two-col">
+    <div>
+      <h3>Принципы использования цвета</h3>
+      <div class="rec-tips" style="margin-top: 20px;">
+        <div class="rec-tip">Белый фон — холст, а не пустота. Товар должен дышать.</div>
+        <div class="rec-tip">Золото используется экономно: иконки, акцентные линии, hover-состояния.</div>
+        <div class="rec-tip">Никаких цветных кнопок. Primary = чёрный, Secondary = граница.</div>
+        <div class="rec-tip">Тени — тёплые (rgba(15,14,12,0.08)), не серые.</div>
+        <div class="rec-tip">Градиенты — только радиальные, очень мягкие, создают глубину.</div>
+        <div class="rec-tip">Hover-эффект на карточках: не цвет, а тень + subtle смещение.</div>
+      </div>
+    </div>
+    <div>
+      <h3>Пространственные токены</h3>
+      <div style="margin-top: 20px;">
+        <div class="spacing-row">
+          <div class="spacing-block" style="width:4px; height:4px;"></div>
+          <div class="spacing-info"><span class="spacing-name">4px</span> — Базовая единица</div>
+        </div>
+        <div class="spacing-row">
+          <div class="spacing-block" style="width:16px; height:16px;"></div>
+          <div class="spacing-info"><span class="spacing-name">16px</span> — Малый отступ (иконки, бейджи)</div>
+        </div>
+        <div class="spacing-row">
+          <div class="spacing-block" style="width:40px; height:40px;"></div>
+          <div class="spacing-info"><span class="spacing-name">40px</span> — Средний (между элементами)</div>
+        </div>
+        <div class="spacing-row">
+          <div class="spacing-block" style="width:80px; height:80px;"></div>
+          <div class="spacing-info"><span class="spacing-name">80px</span> — Крупный (между секциями)</div>
+        </div>
+        <div class="spacing-row">
+          <div class="spacing-block" style="width:120px; height:120px; opacity:0.3;"></div>
+          <div class="spacing-info"><span class="spacing-name">120px</span> — Героический (padding страниц)</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Typography -->
+<section id="typography">
+  <div class="section-header">
+    <div>
+      <div class="section-num">02 — Типографика</div>
+      <h2>Два голоса,<br><em>одна</em> история</h2>
+    </div>
+    <p class="section-intro">
+      Cormorant Garamond — для поэзии: заголовки, цитаты, названия коллекций. 
+      Jost — для прозы: UI, описания, навигация. Вместе они создают tension 
+      между роскошью и функциональностью.
+    </p>
+  </div>
+
+  <div class="type-specimen">
+    <div class="type-tag">Display · Cormorant Garamond 300</div>
+    <div class="specimen-display">Дуб & Сталь</div>
+    <div class="specimen-display" style="font-style:italic; color: var(--gold); font-size: 52px;">Collection 2025</div>
+    <div class="specimen-meta">clamp(52px, 7vw, 96px) · Letter-spacing: -0.02em · Line-height: 1.02</div>
+  </div>
+
+  <div style="display:grid; grid-template-columns: 1fr 1fr; gap: 24px; margin-bottom: 24px;">
+    <div class="type-specimen">
+      <div class="type-tag">H1 · Cormorant 400</div>
+      <div class="specimen-heading">Мебель, которая<br>живёт поколениями</div>
+      <div class="specimen-meta">clamp(36px, 4vw, 54px) · Normal · -0.01em</div>
+    </div>
+    <div class="type-specimen">
+      <div class="type-tag">H1 Italic · Cormorant 300i</div>
+      <div class="specimen-heading" style="font-style:italic; font-weight:300; color: var(--gold);">
+        Ручная работа,<br>дикий дуб
+      </div>
+      <div class="specimen-meta">Используется для подзаголовков и акцентов</div>
+    </div>
+  </div>
+
+  <div class="type-specimen">
+    <div class="type-tag">Body & UI · Jost 300</div>
+    <div class="specimen-ui">
+      Каждый предмет создаётся мастерами в небольших мастерских Подмосковья. 
+      Массив дуба выдерживается минимум 3 года перед обработкой — это гарантирует 
+      стабильность формы и глубину текстуры. Металлические элементы куются вручную 
+      и покрываются матовым воском для защиты от окисления.
+    </div>
+    <div class="specimen-meta">16px / 300 weight · Line-height: 1.8 · Color: var(--mid)</div>
+  </div>
+
+  <div style="display:grid; grid-template-columns: repeat(4, 1fr); gap: 16px; margin-top: 24px;">
+    <div class="type-specimen" style="padding: 24px;">
+      <div class="type-tag">Caption</div>
+      <div style="font-size:11px; letter-spacing:0.2em; text-transform:uppercase; color:var(--gold); margin-bottom:4px;">Новинка сезона</div>
+      <div class="specimen-meta">11px · 300 · 0.2em tracking</div>
+    </div>
+    <div class="type-specimen" style="padding: 24px;">
+      <div class="type-tag">Price</div>
+      <div style="font-family:'Cormorant Garamond',serif; font-size:28px; font-weight:400;">125 000 ₽</div>
+      <div class="specimen-meta">Cormorant 400 · 28px</div>
+    </div>
+    <div class="type-specimen" style="padding: 24px;">
+      <div class="type-tag">Button</div>
+      <div style="background:var(--ink); color:white; padding:14px 28px; font-size:11px; letter-spacing:0.2em; text-transform:uppercase; display:inline-block; font-family:'Jost',sans-serif; font-weight:400;">В корзину</div>
+    </div>
+    <div class="type-specimen" style="padding: 24px;">
+      <div class="type-tag">Badge</div>
+      <div style="background:var(--gold-pale); color:var(--gold); padding:6px 14px; font-size:9px; letter-spacing:0.25em; text-transform:uppercase; display:inline-block; font-family:'Jost',sans-serif; font-weight:400; margin-bottom:8px;">Новинка</div><br>
+      <div style="background:var(--ink); color:white; padding:6px 14px; font-size:9px; letter-spacing:0.25em; text-transform:uppercase; display:inline-block; font-family:'Jost',sans-serif; font-weight:400;">−20%</div>
+    </div>
+  </div>
+</section>
+
+<!-- Pages / Wireframes -->
+<section id="pages">
+  <div class="section-header">
+    <div>
+      <div class="section-num">03 — Структура страниц</div>
+      <h2>Семь экранов,<br><em>одна</em> история бренда</h2>
+    </div>
+    <p class="section-intro">
+      Каждая страница — не просто информация, а опыт. 
+      Пользователь должен чувствовать, что путешествует по пространству,
+      а не листает каталог IKEA.
+    </p>
+  </div>
+
+  <div class="wireframe-grid">
+
+    <!-- Main page -->
+    <div class="wireframe-card">
+      <div class="badge">Приоритет 1</div>
+      <div class="wireframe-preview">
+        <div class="wf-nav"></div>
+        <div class="wf-hero" style="height: 45%; margin-bottom: 8px;">
+          <div>
+            <div class="wf-text" style="width:90%; height:10px; background:rgba(255,255,255,0.6); margin-bottom:6px;"></div>
+            <div class="wf-text" style="width:70%; height:7px; background:rgba(255,255,255,0.4);"></div>
+          </div>
+          <div class="wf-label" style="position:absolute; top:12px; right:12px;">Hero Video</div>
+        </div>
+        <div class="wf-text" style="width:40%; height:7px; margin:0 auto 12px;"></div>
+        <div class="wf-grid-3">
+          <div class="wf-img"></div>
+          <div class="wf-img"></div>
+          <div class="wf-img"></div>
+        </div>
+        <div class="wf-block" style="height: 80px; margin-bottom: 0;"></div>
+      </div>
+      <div class="wf-info">
+        <div class="wf-title">Главная страница</div>
+        <div class="wf-desc">Hero-видео → Marquee коллекций → Product Spotlight → Горизонтальный скролл → UGC галерея</div>
+      </div>
+    </div>
+
+    <!-- Catalog -->
+    <div class="wireframe-card">
+      <div class="badge">Приоритет 1</div>
+      <div class="wireframe-preview">
+        <div class="wf-nav"></div>
+        <div style="margin-bottom:8px;">
+          <div class="wf-text" style="width:30%; height:8px; margin-bottom:8px;"></div>
+          <div style="display:flex; gap:6px; flex-wrap:wrap; margin-bottom:8px;">
+            <div style="height:18px; background:var(--ink); opacity:0.08; width:60px; border-radius:2px;"></div>
+            <div style="height:18px; background:var(--gold-pale); width:50px; border-radius:2px;"></div>
+            <div style="height:18px; background:var(--warm-gray); width:70px; border-radius:2px;"></div>
+          </div>
+        </div>
+        <div class="wf-sidebar">
+          <div>
+            <div class="wf-block" style="height:120px;"></div>
+          </div>
+          <div class="wf-grid-2" style="grid-template-columns: 1fr 1fr;">
+            <div class="wf-img" style="aspect-ratio:3/4;"></div>
+            <div class="wf-img" style="aspect-ratio:3/4;"></div>
+            <div class="wf-img" style="aspect-ratio:3/4;"></div>
+            <div class="wf-img" style="aspect-ratio:3/4;"></div>
+          </div>
+        </div>
+      </div>
+      <div class="wf-info">
+        <div class="wf-title">Каталог</div>
+        <div class="wf-desc">Боковые фильтры + сетка 2–4 колонки + мгновенная фильтрация Algolia + URL-sync</div>
+      </div>
+    </div>
+
+    <!-- Product page -->
+    <div class="wireframe-card">
+      <div class="badge">Приоритет 1</div>
+      <div class="wireframe-preview">
+        <div class="wf-nav"></div>
+        <div style="display:grid; grid-template-columns:1.2fr 0.8fr; gap:8px; height:calc(100% - 28px);">
+          <div>
+            <div class="wf-img" style="aspect-ratio:1; margin-bottom:6px;"></div>
+            <div style="display:grid; grid-template-columns: repeat(4,1fr); gap:4px;">
+              <div class="wf-img" style="aspect-ratio:1;"></div>
+              <div class="wf-img" style="aspect-ratio:1;"></div>
+              <div class="wf-img" style="aspect-ratio:1;"></div>
+              <div class="wf-img" style="aspect-ratio:1;"></div>
+            </div>
+          </div>
+          <div style="padding-top:4px;">
+            <div class="wf-text" style="width:80%; height:9px; margin-bottom:4px;"></div>
+            <div class="wf-text" style="width:60%; height:7px; margin-bottom:12px;"></div>
+            <div class="wf-text" style="width:50%; height:12px; background:var(--gold); opacity:0.3; margin-bottom:12px;"></div>
+            <div class="wf-text medium" style="height:5px; margin-bottom:3px;"></div>
+            <div class="wf-text short" style="height:5px; margin-bottom:12px;"></div>
+            <div class="wf-btn" style="width:100%; margin-bottom:6px;"></div>
+            <div class="wf-btn" style="width:100%; background:transparent; border:1px solid var(--line);"></div>
+          </div>
+        </div>
+      </div>
+      <div class="wf-info">
+        <div class="wf-title">Страница товара</div>
+        <div class="wf-desc">Sticky галерея + zoom + конфигуратор + размеры + доп. товары</div>
+      </div>
+    </div>
+
+    <!-- Cart -->
+    <div class="wireframe-card">
+      <div class="wireframe-preview">
+        <div class="wf-nav"></div>
+        <div class="wf-text" style="width:25%; height:9px; margin-bottom:20px;"></div>
+        <div style="display:grid; grid-template-columns:1.5fr 0.8fr; gap:12px;">
+          <div>
+            <div style="display:flex; gap:8px; margin-bottom:10px; padding-bottom:10px; border-bottom:1px solid var(--line);">
+              <div class="wf-img" style="width:60px; height:60px; flex-shrink:0;"></div>
+              <div style="flex:1;">
+                <div class="wf-text" style="width:90%; height:6px; margin-bottom:4px;"></div>
+                <div class="wf-text" style="width:50%; height:5px;"></div>
+              </div>
+            </div>
+            <div style="display:flex; gap:8px; margin-bottom:10px;">
+              <div class="wf-img" style="width:60px; height:60px; flex-shrink:0;"></div>
+              <div style="flex:1;">
+                <div class="wf-text" style="width:80%; height:6px; margin-bottom:4px;"></div>
+                <div class="wf-text" style="width:40%; height:5px;"></div>
+              </div>
+            </div>
+          </div>
+          <div>
+            <div class="wf-block" style="height:100px; padding:12px;">
+              <div class="wf-text" style="height:6px; margin-bottom:6px;"></div>
+              <div class="wf-text short" style="height:6px;"></div>
+            </div>
+            <div class="wf-btn" style="width:100%; margin-top:8px;"></div>
+          </div>
+        </div>
+      </div>
+      <div class="wf-info">
+        <div class="wf-title">Корзина</div>
+        <div class="wf-desc">Список товаров + сводка заказа + промокод + Stripe Checkout</div>
+      </div>
+    </div>
+
+    <!-- Collection -->
+    <div class="wireframe-card">
+      <div class="wireframe-preview">
+        <div class="wf-nav"></div>
+        <div class="wf-hero" style="height:30%; margin-bottom:10px;">
+          <div class="wf-label">Коллекция / обложка</div>
+        </div>
+        <div class="wf-grid-3">
+          <div class="wf-img" style="aspect-ratio:3/4;"></div>
+          <div class="wf-img" style="aspect-ratio:3/4; grid-row: span 1;"></div>
+          <div class="wf-img" style="aspect-ratio:3/4;"></div>
+        </div>
+      </div>
+      <div class="wf-info">
+        <div class="wf-title">Страница коллекции</div>
+        <div class="wf-desc">Обложка + история коллекции + товары в неравномерной сетке</div>
+      </div>
+    </div>
+
+    <!-- Account -->
+    <div class="wireframe-card">
+      <div class="wireframe-preview">
+        <div class="wf-nav"></div>
+        <div class="wf-sidebar" style="gap:10px; height:calc(100% - 28px);">
+          <div>
+            <div style="width:40px; height:40px; border-radius:50%; background:var(--gold); opacity:0.3; margin-bottom:8px;"></div>
+            <div class="wf-text" style="height:5px; margin-bottom:4px;"></div>
+            <div class="wf-text short" style="height:5px; margin-bottom:12px;"></div>
+            <div class="wf-block" style="height:80px;"></div>
+          </div>
+          <div>
+            <div class="wf-text" style="height:7px; margin-bottom:8px;"></div>
+            <div class="wf-block" style="height:40px; margin-bottom:6px;"></div>
+            <div class="wf-block" style="height:40px; margin-bottom:6px;"></div>
+            <div class="wf-block" style="height:40px;"></div>
+          </div>
+        </div>
+      </div>
+      <div class="wf-info">
+        <div class="wf-title">Личный кабинет</div>
+        <div class="wf-desc">Профиль + история заказов + избранное + адреса доставки</div>
+      </div>
+    </div>
+
+  </div>
+
+  <div class="pull-quote">
+    «Пользователь не должен думать — он должен чувствовать. 
+    Хорошая навигация невидима.»
+  </div>
+</section>
+
+<!-- Recommendations -->
+<section id="recommendations">
+  <div class="section-header">
+    <div>
+      <div class="section-num">04 — Дизайн-принципы</div>
+      <h2>Восемь правил<br><em>которые нельзя</em> нарушать</h2>
+    </div>
+    <p class="section-intro">
+      Это не вкусовщина — это решения, которые напрямую влияют на конверсию,
+      восприятие бренда и скорость разработки.
+    </p>
+  </div>
+
+  <div class="recs-grid">
+    <div class="rec-card">
+      <div class="rec-icon">◯</div>
+      <div class="rec-title">Фотография важнее дизайна</div>
+      <div class="rec-text">Дизайн должен отступать, когда появляется товар. Карточки без лишних украшений, белый или нейтральный фон съёмки, минимум UI поверх фото.</div>
+      <div class="rec-tips">
+        <div class="rec-tip">Минимальный размер карточки 400×500px</div>
+        <div class="rec-tip">На hover — второе lifestyle-фото, не оверлей</div>
+        <div class="rec-tip">Тени на фото — только от предмета, не от карточки</div>
+      </div>
+    </div>
+    <div class="rec-card">
+      <div class="rec-icon">⟡</div>
+      <div class="rec-title">Белое пространство — это контент</div>
+      <div class="rec-text">Воздух между элементами создаёт ощущение роскоши. Не бойся пустого места — оно работает сильнее, чем плотная упаковка.</div>
+      <div class="rec-tips">
+        <div class="rec-tip">Padding секций: min 80px desktop, 48px mobile</div>
+        <div class="rec-tip">Между карточками в каталоге: 24–32px</div>
+        <div class="rec-tip">Ширина контента: max 1280px, центровка</div>
+      </div>
+    </div>
+    <div class="rec-card">
+      <div class="rec-icon">→</div>
+      <div class="rec-title">Один призыв к действию на экран</div>
+      <div class="rec-text">Пользователь растерян, когда у него много кнопок. Один главный CTA, остальное — вторичные действия (outline/ghost).</div>
+      <div class="rec-tips">
+        <div class="rec-tip">Primary: чёрный фон, белый текст, uppercase</div>
+        <div class="rec-tip">Secondary: прозрачный фон, border, тот же размер</div>
+        <div class="rec-tip">Ghost: только текст + тонкое подчёркивание</div>
+      </div>
+    </div>
+    <div class="rec-card">
+      <div class="rec-icon">∿</div>
+      <div class="rec-title">Анимация — не украшение, а сигнал</div>
+      <div class="rec-text">Каждая анимация должна сообщать о состоянии или иерархии. Анимация ради красоты — это шум. Анимация ради понимания — это ценность.</div>
+      <div class="rec-tips">
+        <div class="rec-tip">Hover: 300–400ms ease-out, только transform+opacity</div>
+        <div class="rec-tip">Page transition: fade 250ms или slide-up 400ms</div>
+        <div class="rec-tip">Scroll reveal: stagger 80ms, translateY 24px → 0</div>
+      </div>
+    </div>
+    <div class="rec-card">
+      <div class="rec-icon">⊞</div>
+      <div class="rec-title">Сетка с нарушениями</div>
+      <div class="rec-text">Строгая сетка создаёт порядок, нарушение сетки создаёт интерес. Выбирай 1–2 момента на странице где элемент выходит за рамки колонок.</div>
+      <div class="rec-tips">
+        <div class="rec-tip">Hero-заголовок может перекрывать изображение</div>
+        <div class="rec-tip">Фото в "Философии" уходит за край экрана</div>
+        <div class="rec-tip">Цена товара — крупнее, чем ожидает пользователь</div>
+      </div>
+    </div>
+    <div class="rec-card">
+      <div class="rec-icon">◈</div>
+      <div class="rec-title">Состояния — это тоже дизайн</div>
+      <div class="rec-text">Loading, empty, error, success — каждое состояние должно быть спроектировано. Skeleton лоадер обязателен везде где есть async данные.</div>
+      <div class="rec-tips">
+        <div class="rec-tip">Skeleton: тот же layout что и контент, pulse анимация</div>
+        <div class="rec-tip">Empty каталог: иллюстрация + предложение расширить фильтры</div>
+        <div class="rec-tip">Error: тёплое сообщение, не технический текст</div>
+      </div>
+    </div>
+    <div class="rec-card">
+      <div class="rec-icon">◐</div>
+      <div class="rec-title">Mobile first — но не mobile only</div>
+      <div class="rec-text">Десктоп это 60%+ аудитории в e-commerce премиум сегмента. Проектируй для десктопа, упрощай до mobile. Не наоборот.</div>
+      <div class="rec-tips">
+        <div class="rec-tip">Breakpoints: 375 / 768 / 1024 / 1280 / 1440px</div>
+        <div class="rec-tip">Mobile каталог: 2 колонки, фильтры в drawer</div>
+        <div class="rec-tip">Touch targets: минимум 44×44px</div>
+      </div>
+    </div>
+    <div class="rec-card">
+      <div class="rec-icon">⌘</div>
+      <div class="rec-title">Скорость — часть дизайна</div>
+      <div class="rec-text">Каждые 100ms задержки снижают конверсию на 1%. LCP &lt; 2.5s, изображения в WebP, lazy loading ниже fold, prefetch при hover.</div>
+      <div class="rec-tips">
+        <div class="rec-tip">Blur placeholder для всех изображений</div>
+        <div class="rec-tip">Priority loading для Hero и first-fold изображений</div>
+        <div class="rec-tip">Prefetch страницы товара при hover на карточку</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Phases -->
+<section id="phases">
+  <div class="section-header">
+    <div>
+      <div class="section-num">05 — Фазы дизайна</div>
+      <h2>От концепции<br>до <em>пиксель-перфект</em></h2>
+    </div>
+    <p class="section-intro">
+      Дизайн и разработка идут параллельно, с опережением в 1 фазу.
+      Пока разработчики реализуют фазу 1 — дизайнер уже работает над фазой 2.
+    </p>
+  </div>
+
+  <div class="timeline">
+    <div class="phase">
+      <div class="phase-dot"></div>
+      <div class="phase-header">
+        <div class="phase-num">Фаза 01</div>
+        <div class="phase-name">Исследование и концепция</div>
+        <div class="phase-time">Неделя 1–2</div>
+      </div>
+      <div class="phase-tasks">
+        <div class="task task-active"><span class="task-icon">★</span> Анализ 5–7 конкурентов (Minotti, Poliform, RH)</div>
+        <div class="task task-active"><span class="task-icon">★</span> Customer journey map: дизайнер → магазин → покупка</div>
+        <div class="task task-active"><span class="task-icon">★</span> Mood board в Figma: референсы фото, типографики, цветов</div>
+        <div class="task task-active"><span class="task-icon">★</span> Определение tone of voice бренда</div>
+        <div class="task task-active"><span class="task-icon">★</span> Выбор шрифтовой пары и финальной палитры</div>
+      </div>
+    </div>
+
+    <div class="phase">
+      <div class="phase-dot"></div>
+      <div class="phase-header">
+        <div class="phase-num">Фаза 02</div>
+        <div class="phase-name">Дизайн-система в Figma</div>
+        <div class="phase-time">Неделя 2–4</div>
+      </div>
+      <div class="phase-tasks">
+        <div class="task"><span class="task-icon">○</span> Tokens: цвета, типографика, тени, радиусы, отступы</div>
+        <div class="task"><span class="task-icon">○</span> Атомы: Button, Input, Badge, Tag, Icon, Avatar</div>
+        <div class="task"><span class="task-icon">○</span> Молекулы: ProductCard, FilterChip, SearchBar, Breadcrumb</div>
+        <div class="task"><span class="task-icon">○</span> Организмы: Header, Footer, FilterPanel, ProductGrid</div>
+        <div class="task"><span class="task-icon">○</span> Все состояния: default, hover, focus, disabled, loading, error</div>
+        <div class="task"><span class="task-icon">○</span> Auto Layout для всех компонентов</div>
+      </div>
+    </div>
+
+    <div class="phase">
+      <div class="phase-dot"></div>
+      <div class="phase-header">
+        <div class="phase-num">Фаза 03</div>
+        <div class="phase-name">Ключевые экраны</div>
+        <div class="phase-time">Неделя 4–7</div>
+      </div>
+      <div class="phase-tasks">
+        <div class="task"><span class="task-icon">○</span> Главная страница (desktop + mobile)</div>
+        <div class="task"><span class="task-icon">○</span> Каталог + все состояния фильтров</div>
+        <div class="task"><span class="task-icon">○</span> Страница товара (3 варианта hover-зоны)</div>
+        <div class="task"><span class="task-icon">○</span> Корзина + mini-cart drawer</div>
+        <div class="task"><span class="task-icon">○</span> Оформление заказа (3 шага)</div>
+        <div class="task"><span class="task-icon">○</span> Страница коллекции</div>
+        <div class="task"><span class="task-icon">○</span> Личный кабинет (4 раздела)</div>
+        <div class="task"><span class="task-icon">○</span> 404 / пустые состояния</div>
+      </div>
+    </div>
+
+    <div class="phase">
+      <div class="phase-dot"></div>
+      <div class="phase-header">
+        <div class="phase-num">Фаза 04</div>
+        <div class="phase-name">Анимации и микровзаимодействия</div>
+        <div class="phase-time">Неделя 8–10</div>
+      </div>
+      <div class="phase-tasks">
+        <div class="task"><span class="task-icon">○</span> Прототип Figma: page transitions</div>
+        <div class="task"><span class="task-icon">○</span> Спецификация GSAP: timeline для Hero</div>
+        <div class="task"><span class="task-icon">○</span> Спецификация Framer Motion: hover + карточки</div>
+        <div class="task"><span class="task-icon">○</span> Описание ScrollTrigger-эффектов</div>
+        <div class="task"><span class="task-icon">○</span> Передача спецификаций разработчикам</div>
+      </div>
+    </div>
+
+    <div class="phase">
+      <div class="phase-dot"></div>
+      <div class="phase-header">
+        <div class="phase-num">Фаза 05</div>
+        <div class="phase-name">QA дизайна и итерации</div>
+        <div class="phase-time">Неделя 11–13</div>
+      </div>
+      <div class="phase-tasks">
+        <div class="task"><span class="task-icon">○</span> Сравнение Figma vs браузер (pixel review)</div>
+        <div class="task"><span class="task-icon">○</span> Тест на реальных устройствах (iPhone, iPad, MacBook)</div>
+        <div class="task"><span class="task-icon">○</span> A/B тест: 2 варианта карточки товара</div>
+        <div class="task"><span class="task-icon">○</span> Accessibility audit: контраст, ARIA, tab-focus</div>
+        <div class="task"><span class="task-icon">○</span> Финальный Lighthouse audit</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Tools -->
+<section id="tools">
+  <div class="section-header">
+    <div>
+      <div class="section-num">06 — Инструменты</div>
+      <h2>Стек дизайнера<br>для <em>этого проекта</em></h2>
+    </div>
+    <p class="section-intro">
+      Не хайп-инструменты, а проверенные решения которые дают
+      максимум результата за минимум времени. Каждый инструмент — 
+      на своём месте.
+    </p>
+  </div>
+  <div class="tools-grid">
+    <div class="tool-card">
+      <div class="tool-name">Figma</div>
+      <div class="tool-role">UI / Дизайн-система</div>
+      <div class="tool-desc">Компоненты, Variants, Auto Layout, Variables для токенов дизайна. Прототипы для анимаций. Dev Mode для передачи разработчикам.</div>
+    </div>
+    <div class="tool-card">
+      <div class="tool-name">Figma Slides</div>
+      <div class="tool-role">Презентации клиенту</div>
+      <div class="tool-desc">Представление концептов, mood boards, промежуточные review с командой. Всё в одном инструменте.</div>
+    </div>
+    <div class="tool-card">
+      <div class="tool-name">FigJam</div>
+      <div class="tool-role">User flows / Мозговой штурм</div>
+      <div class="tool-desc">Customer journey, sitemap, brainstorming. Интерактивные воркшопы с командой.</div>
+    </div>
+    <div class="tool-card">
+      <div class="tool-name">Unsplash / Pexels</div>
+      <div class="tool-role">Placeholder-фото</div>
+      <div class="tool-desc">До появления реального контента. Искать: "wood texture interior", "minimal furniture", "scandinavian design".</div>
+    </div>
+    <div class="tool-card">
+      <div class="tool-name">Coolors.co</div>
+      <div class="tool-role">Доработка палитры</div>
+      <div class="tool-desc">Проверка контрастности, генерация оттенков из базового акцентного цвета, экспорт в CSS переменные.</div>
+    </div>
+    <div class="tool-card">
+      <div class="tool-name">Google Fonts</div>
+      <div class="tool-role">Типографика</div>
+      <div class="tool-desc">Cormorant Garamond + DM Sans — оба бесплатны. Проверяй через Variable Fonts для оптимизации загрузки.</div>
+    </div>
+    <div class="tool-card">
+      <div class="tool-name">Contrast.fyi</div>
+      <div class="tool-role">Accessibility</div>
+      <div class="tool-desc">Проверка WCAG AA / AAA для всех пар текст/фон. Обязательно для золотого цвета на белом — он граничный.</div>
+    </div>
+    <div class="tool-card">
+      <div class="tool-name">Responsively</div>
+      <div class="tool-role">Мультидевайсный тест</div>
+      <div class="tool-desc">Одновременный просмотр на 5+ размерах экрана. Незаменим на этапе QA дизайна в браузере.</div>
+    </div>
+  </div>
+</section>
+
+<!-- Checklist -->
+<section id="checklist">
+  <div class="section-header">
+    <div>
+      <div class="section-num">07 — Чеклист</div>
+      <h2>Перед передачей<br>в <em>разработку</em></h2>
+    </div>
+    <p class="section-intro">
+      Дизайн готов к разработке только когда все пункты закрыты.
+      Незакрытый пункт = дыра в продукте, которую придётся чинить дороже.
+    </p>
+  </div>
+
+  <div class="checklist">
+    <div class="check-group">
+      <div class="check-group-title">Компоненты</div>
+      <div class="check-item done" onclick="this.classList.toggle('done')">
+        <div class="check-box"></div>
+        <span>Все состояния кнопок задокументированы</span>
+      </div>
+      <div class="check-item done" onclick="this.classList.toggle('done')">
+        <div class="check-box"></div>
+        <span>Карточка товара: 4 состояния (default, hover, loading, sold out)</span>
+      </div>
+      <div class="check-item" onclick="this.classList.toggle('done')">
+        <div class="check-box"></div>
+        <span>Формы: все ошибки валидации показаны</span>
+      </div>
+      <div class="check-item" onclick="this.classList.toggle('done')">
+        <div class="check-box"></div>
+        <span>Skeleton для каждого async компонента</span>
+      </div>
+      <div class="check-item" onclick="this.classList.toggle('done')">
+        <div class="check-box"></div>
+        <span>Модальные окна: overlay, close, mobile fullscreen</span>
+      </div>
+      <div class="check-item" onclick="this.classList.toggle('done')">
+        <div class="check-box"></div>
+        <span>Тосты / уведомления: success, error, info</span>
+      </div>
+    </div>
+    <div class="check-group">
+      <div class="check-group-title">Типографика и цвета</div>
+      <div class="check-item" onclick="this.classList.toggle('done')">
+        <div class="check-box"></div>
+        <span>Все токены в Figma Variables синхронизированы</span>
+      </div>
+      <div class="check-item" onclick="this.classList.toggle('done')">
+        <div class="check-box"></div>
+        <span>Контраст всех текстовых пар ≥ WCAG AA (4.5:1)</span>
+      </div>
+      <div class="check-item" onclick="this.classList.toggle('done')">
+        <div class="check-box"></div>
+        <span>Fluid typography проверена на всех breakpoints</span>
+      </div>
+      <div class="check-item" onclick="this.classList.toggle('done')">
+        <div class="check-box"></div>
+        <span>Dark mode (если планируется) — все цвета адаптированы</span>
+      </div>
+    </div>
+    <div class="check-group">
+      <div class="check-group-title">Адаптивность</div>
+      <div class="check-item" onclick="this.classList.toggle('done')">
+        <div class="check-box"></div>
+        <span>Каждый экран в 5 брейкпоинтах (375 / 768 / 1024 / 1280 / 1440)</span>
+      </div>
+      <div class="check-item" onclick="this.classList.toggle('done')">
+        <div class="check-box"></div>
+        <span>Мобильная навигация: hamburger menu / bottom bar</span>
+      </div>
+      <div class="check-item" onclick="this.classList.toggle('done')">
+        <div class="check-box"></div>
+        <span>Фильтры на мобильном: drawer снизу</span>
+      </div>
+      <div class="check-item" onclick="this.classList.toggle('done')">
+        <div class="check-box"></div>
+        <span>Touch targets ≥ 44px на мобильном</span>
+      </div>
+      <div class="check-item" onclick="this.classList.toggle('done')">
+        <div class="check-box"></div>
+        <span>Горизонтальные скроллы на мобильном — snap-точки</span>
+      </div>
+    </div>
+    <div class="check-group">
+      <div class="check-group-title">Передача разработке</div>
+      <div class="check-item" onclick="this.classList.toggle('done')">
+        <div class="check-box"></div>
+        <span>Dev Mode в Figma включён для всех frame</span>
+      </div>
+      <div class="check-item" onclick="this.classList.toggle('done')">
+        <div class="check-box"></div>
+        <span>Иконки экспортированы как SVG (оптимизированы через SVGO)</span>
+      </div>
+      <div class="check-item" onclick="this.classList.toggle('done')">
+        <div class="check-box"></div>
+        <span>Анимации описаны в спецификации (duration, easing, trigger)</span>
+      </div>
+      <div class="check-item" onclick="this.classList.toggle('done')">
+        <div class="check-box"></div>
+        <span>Именование слоёв понятно разработчику</span>
+      </div>
+      <div class="check-item" onclick="this.classList.toggle('done')">
+        <div class="check-box"></div>
+        <span>Все изображения — placeholder с указанием соотношения сторон</span>
+      </div>
+      <div class="check-item" onclick="this.classList.toggle('done')">
+        <div class="check-box"></div>
+        <span>Финальный review с product manager пройден</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Footer -->
+<footer>
+  <div class="footer-brand">Wood & Metal</div>
+  <div class="footer-note">
+    Этот документ — живой артефакт.<br>
+    Обновляй его по мере принятия дизайн-решений.<br>
+    Версия синхронизируется с AGENTS.md в репозитории.
+  </div>
+  <div class="footer-version">
+    Design Plan v1.0<br>
+    2025 · Конфиденциально
+  </div>
+</footer>
+
+<script>
+  // Custom cursor
+  const cursor = document.getElementById('cursor');
+  const cursorRing = document.getElementById('cursorRing');
+  let mouseX = 0, mouseY = 0;
+  let ringX = 0, ringY = 0;
+
+  document.addEventListener('mousemove', e => {
+    mouseX = e.clientX;
+    mouseY = e.clientY;
+    cursor.style.left = mouseX + 'px';
+    cursor.style.top = mouseY + 'px';
+  });
+
+  function animateRing() {
+    ringX += (mouseX - ringX) * 0.12;
+    ringY += (mouseY - ringY) * 0.12;
+    cursorRing.style.left = ringX + 'px';
+    cursorRing.style.top = ringY + 'px';
+    requestAnimationFrame(animateRing);
+  }
+  animateRing();
+
+  // Scroll reveal
+  const observer = new IntersectionObserver(entries => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.style.opacity = '1';
+        entry.target.style.transform = 'translateY(0)';
+      }
+    });
+  }, { threshold: 0.1 });
+
+  document.querySelectorAll('.wireframe-card, .rec-card, .tool-card').forEach(el => {
+    el.style.opacity = '0';
+    el.style.transform = 'translateY(20px)';
+    el.style.transition = 'opacity 0.5s ease, transform 0.5s ease';
+    observer.observe(el);
+  });
+
+  // Active nav link on scroll
+  const sections = document.querySelectorAll('section[id]');
+  const navLinks = document.querySelectorAll('.nav-links a');
+
+  window.addEventListener('scroll', () => {
+    let current = '';
+    sections.forEach(section => {
+      if (window.scrollY >= section.offsetTop - 120) {
+        current = section.getAttribute('id');
+      }
+    });
+    navLinks.forEach(link => {
+      link.style.color = link.getAttribute('href') === '#' + current
+        ? 'var(--gold)' : '';
+    });
+  });
+</script>
+</body>
+</html>
