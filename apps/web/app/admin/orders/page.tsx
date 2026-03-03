@@ -20,7 +20,17 @@ const STATUS_COLORS: Record<string, string> = {
 };
 
 type OrderItem = { id: string; qty: number; product: { name: string } };
-type Order = { id: string; status: string; guestName: string | null; guestEmail: string | null; total: number; createdAt: string; items: OrderItem[] };
+type Order = {
+  id: string;
+  status: string;
+  guestName: string | null;
+  guestEmail: string | null;
+  contactPhone: string | null;
+  total: number;
+  createdAt: string;
+  items: OrderItem[];
+  user: { name: string | null; email: string | null } | null;
+};
 
 export default function AdminOrdersPage() {
   const [orders, setOrders] = useState<Order[]>([]);
@@ -57,16 +67,30 @@ export default function AdminOrdersPage() {
         <div style={{ color: "rgba(138,128,112,0.5)", fontSize: "14px", padding: "40px 0" }}>Заказов пока нет</div>
       ) : (
         <div style={{ display: "flex", flexDirection: "column", gap: "12px" }}>
-          {orders.map((order) => (
+          {orders.map((order) => {
+            const customerName = order.user?.name ?? order.guestName ?? "Покупатель";
+            const customerEmail = order.user?.email ?? order.guestEmail ?? "—";
+            const customerPhone = order.contactPhone ?? "—";
+            return (
             <div key={order.id} style={{ border: "1px solid rgba(216,210,196,0.12)", padding: "20px 24px" }}>
               <div style={{ display: "flex", justifyContent: "space-between", alignItems: "flex-start", marginBottom: "12px", gap: "16px" }}>
                 <div style={{ minWidth: 0 }}>
                   <div style={{ fontSize: "13px", color: "#FAFAF7", marginBottom: "4px" }}>
-                    #{order.id.slice(-8).toUpperCase()} · {order.guestName ?? "Покупатель"}
+                    #{order.id.slice(-8).toUpperCase()} · {customerName}
                   </div>
-                  <div style={{ fontSize: "12px", color: "rgba(138,128,112,0.6)" }}>
-                    {order.guestEmail} · {new Date(order.createdAt).toLocaleDateString("ru-RU", { day: "numeric", month: "short", year: "numeric", hour: "2-digit", minute: "2-digit" })}
+                  <div style={{ fontSize: "12px", color: "rgba(138,128,112,0.6)", display: "flex", flexWrap: "wrap", gap: "6px" }}>
+                    <span>{customerEmail}</span>
+                    <span>·</span>
+                    <span>{new Date(order.createdAt).toLocaleDateString("ru-RU", { day: "numeric", month: "short", year: "numeric", hour: "2-digit", minute: "2-digit" })}</span>
                   </div>
+                  <div style={{ fontSize: "11px", color: "rgba(138,128,112,0.7)", marginTop: "4px" }}>
+                    {customerPhone}
+                  </div>
+                  {order.guestName && order.guestEmail && order.user && (
+                    <div style={{ fontSize: "11px", color: "rgba(138,128,112,0.6)", marginTop: "4px" }}>
+                      Гостевой контакт: {order.guestName} · {order.guestEmail}
+                    </div>
+                  )}
                 </div>
                 <div style={{ textAlign: "right", flexShrink: 0, display: "flex", flexDirection: "column", alignItems: "flex-end", gap: "8px" }}>
                   <select
@@ -92,7 +116,8 @@ export default function AdminOrdersPage() {
                 ))}
               </div>
             </div>
-          ))}
+            );
+          })}
         </div>
       )}
     </div>

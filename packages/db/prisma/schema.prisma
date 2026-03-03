@@ -87,6 +87,7 @@ model Order {
   user      User?       @relation(fields: [userId], references: [id])
   guestName  String?
   guestEmail String?
+  contactPhone String?
   status    String      @default("PENDING")
   total     Int
   items     OrderItem[]

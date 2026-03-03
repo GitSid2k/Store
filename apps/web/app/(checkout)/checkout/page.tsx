@@ -50,8 +50,12 @@ export default function CheckoutPage() {
   const totalAmount = total();
   const itemCount = items.reduce((s, i) => s + i.qty, 0);
 
+  const digitsInPhone = contact.phone.replace(/\D/g, "");
+  const isContactValid = Boolean(contact.name.trim() && contact.email.trim() && digitsInPhone.length >= 10);
+
   async function handleSubmit() {
     if (submitting) return;
+    if (!isContactValid) return;
     setSubmitting(true);
     try {
       const res = await fetch("/api/orders", {
@@ -60,6 +64,7 @@ export default function CheckoutPage() {
         body: JSON.stringify({
           name: contact.name,
           email: contact.email,
+          phone: contact.phone,
           address: `${delivery.city}, ${delivery.address}`,
           items: items.map((i) => ({ slug: i.slug, title: i.title, image: i.image, qty: i.qty, price: i.price })),
           total: totalAmount,
@@ -164,9 +169,10 @@ export default function CheckoutPage() {
                   />
                 </label>
                 <label style={labelStyle}>
-                  Телефон
+                  Телефон *
                   <input
                     type="tel"
+                    required
                     value={contact.phone}
                     onChange={(e) => setContact((p) => ({ ...p, phone: e.target.value }))}
                     placeholder="+7 (999) 000-00-00"
@@ -176,9 +182,9 @@ export default function CheckoutPage() {
                   />
                 </label>
                 <button
-                  disabled={!contact.name || !contact.email}
+                  disabled={!isContactValid}
                   onClick={() => setStep(2)}
-                  style={{ marginTop: "8px", background: !contact.name || !contact.email ? "var(--line)" : "var(--ink)", color: "white", padding: "16px 40px", fontSize: "11px", letterSpacing: "0.25em", textTransform: "uppercase", fontFamily: "var(--font-body)", border: "none", cursor: !contact.name || !contact.email ? "not-allowed" : "pointer", alignSelf: "flex-start", transition: "background 0.2s" }}
+                  style={{ marginTop: "8px", background: !isContactValid ? "var(--line)" : "var(--ink)", color: "white", padding: "16px 40px", fontSize: "11px", letterSpacing: "0.25em", textTransform: "uppercase", fontFamily: "var(--font-body)", border: "none", cursor: !isContactValid ? "not-allowed" : "pointer", alignSelf: "flex-start", transition: "background 0.2s" }}
                 >
                   Далее — Доставка →
                 </button>
@@ -256,7 +262,7 @@ export default function CheckoutPage() {
                   <div style={{ fontSize: "14px", color: "var(--ink)", lineHeight: 1.8 }}>
                     <div>{contact.name}</div>
                     <div style={{ color: "var(--mid)" }}>{contact.email}</div>
-                    {contact.phone && <div style={{ color: "var(--mid)" }}>{contact.phone}</div>}
+                    <div style={{ color: "var(--mid)" }}>{contact.phone}</div>
                   </div>
                 </div>
                 <div style={{ border: "1px solid var(--line)", padding: "28px", marginBottom: "32px" }}>

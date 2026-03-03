@@ -35,10 +35,15 @@ export async function POST(req: Request) {
     const body = await req.json() as {
       name: string;
       email: string;
+      phone: string;
       address: string;
       total: number;
       items: { slug: string; title: string; image?: string; qty: number; price: number }[];
     };
+
+    if (!body.phone?.trim()) {
+      return NextResponse.json({ error: "Phone number required" }, { status: 400 });
+    }
 
     // Get authenticated user
     const userId = await getUserId(req);
@@ -76,6 +81,8 @@ export async function POST(req: Request) {
       orderData.guestName = body.name;
       orderData.guestEmail = body.email;
     }
+
+    orderData.contactPhone = body.phone;
 
     const order = await prisma.order.create({
       data: orderData,

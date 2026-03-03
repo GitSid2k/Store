@@ -24,17 +24,27 @@ export function Wishlist() {
   const [wishlist, setWishlist] = useState<WishlistItem[]>([]);
   const [loading, setLoading] = useState(true);
   const [removing, setRemoving] = useState<string | null>(null);
+  const [unauthorized, setUnauthorized] = useState(false);
+  const [error, setError] = useState<string | null>(null);
 
   useEffect(() => {
     const fetchWishlist = async () => {
       try {
         const response = await fetch("/api/wishlist");
-        if (response.ok) {
-          const data = await response.json();
-          setWishlist(data);
+        if (response.status === 401) {
+          setUnauthorized(true);
+          return;
         }
+
+        if (!response.ok) {
+          throw new Error("Failed to load wishlist");
+        }
+
+        const data = await response.json();
+        setWishlist(data);
       } catch (error) {
         console.error("Failed to fetch wishlist:", error);
+        setError("Не удалось загрузить избранное. Попробуйте позже.");
       } finally {
         setLoading(false);
       }
@@ -72,6 +82,37 @@ export function Wishlist() {
             </div>
           ))}
         </div>
+      </div>
+    );
+  }
+
+  if (unauthorized) {
+    return (
+      <div style={{ padding: "40px 0", textAlign: "center" }}>
+        <h2 style={{ fontFamily: "var(--font-display)", fontSize: "18px", letterSpacing: "0.05em", marginBottom: "16px", color: "var(--dark)" }}>
+          Войдите, чтобы увидеть избранное
+        </h2>
+        <p style={{ color: "var(--mid)", marginBottom: "32px" }}>
+          Мы привязываем список желаемого к вашему аккаунту.
+        </p>
+        <Link
+          href="/login"
+          className="button-primary"
+          style={{ display: "inline-block", padding: "12px 32px", background: "var(--dark)", color: "white", textDecoration: "none", borderRadius: "4px", fontSize: "13px", letterSpacing: "0.02em" }}
+        >
+          Войти
+        </Link>
+      </div>
+    );
+  }
+
+  if (error) {
+    return (
+      <div style={{ padding: "40px 0", textAlign: "center" }}>
+        <h2 style={{ fontFamily: "var(--font-display)", fontSize: "18px", letterSpacing: "0.05em", marginBottom: "16px", color: "var(--dark)" }}>
+          Ошибка загрузки
+        </h2>
+        <p style={{ color: "var(--mid)", marginBottom: "32px" }}>{error}</p>
       </div>
     );
   }

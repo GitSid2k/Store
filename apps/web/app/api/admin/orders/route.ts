@@ -9,6 +9,13 @@ export async function GET() {
       items: {
         include: { product: { select: { name: true } } },
       },
+      user: {
+        select: {
+          name: true,
+          email: true,
+        },
+      },
+      _count: false,
     },
   });
   return NextResponse.json(orders);

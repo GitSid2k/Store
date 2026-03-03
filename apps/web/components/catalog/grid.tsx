@@ -1,6 +1,6 @@
 "use client";
 
-import { useMemo, useState } from "react";
+import { useMemo } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { WishlistButton } from "@/components/ui/wishlist-button";
@@ -22,9 +22,16 @@ type Props = {
   products: CatalogProduct[];
 };
 
+const STATUS_LABEL: Record<string, string> = {
+  IN_STOCK: "В наличии",
+  OUT_OF_STOCK: "Нет в наличии",
+  MADE_TO_ORDER: "Под заказ",
+};
+
 /* Badge style from design plan */
 function ProductBadge({ badge }: { badge: string }) {
-  const isSale = badge.startsWith("−") || badge.startsWith("-") || badge.includes("%");
+  const label = STATUS_LABEL[badge] ?? badge;
+  const isSale = label.startsWith("−") || label.startsWith("-") || label.includes("%");
   return (
     <div
       style={{
@@ -39,27 +46,13 @@ function ProductBadge({ badge }: { badge: string }) {
         fontWeight: 400,
       }}
     >
-      {badge}
+      {label}
     </div>
   );
 }
 
 export function CatalogGrid({ products }: Props) {
-  const [quickViewSlug, setQuickViewSlug] = useState<string | null>(null);
-  const productMap = useMemo(() => new Map(products.map((p) => [p.slug, p])), [products]);
-  const active = quickViewSlug ? productMap.get(quickViewSlug) : null;
-  const parsedSpecs = useMemo(() => {
-    if (!active?.specs) return null;
-    try {
-      const obj = JSON.parse(active.specs) as Record<string, unknown>;
-      return Object.entries(obj)
-        .filter(([_, v]) => v !== undefined && v !== null)
-        .slice(0, 4)
-        .map(([k, v]) => ({ key: k, value: String(v) }));
-    } catch {
-      return null;
-    }
-  }, [active]);
+  useMemo(() => products, [products]);
 
   /* Empty / no-results state */
   if (products.length === 0) {
@@ -178,34 +171,6 @@ export function CatalogGrid({ products }: Props) {
               <div style={{ position: "absolute", top: "12px", right: "12px", zIndex: 2 }}>
                 <WishlistButton item={{ slug: item.slug, title: item.title, price: item.price, image: item.image, alt: item.alt }} size="sm" />
               </div>
-              {/* Quick View on hover */}
-              <button
-                onClick={(e) => { e.stopPropagation(); setQuickViewSlug(item.slug); }}
-                style={{
-                  position: "absolute",
-                  bottom: "16px",
-                  left: "50%",
-                  transform: "translateX(-50%) translateY(8px)",
-                  background: "var(--paper)",
-                  color: "var(--ink)",
-                  border: "1px solid var(--line)",
-                  padding: "10px 20px",
-                  fontSize: "10px",
-                  letterSpacing: "0.2em",
-                  textTransform: "uppercase",
-                  fontFamily: "var(--font-body)",
-                  cursor: "pointer",
-                  opacity: 0,
-                  transition: "opacity 0.2s, transform 0.2s",
-                  whiteSpace: "nowrap",
-                }}
-                onMouseEnter={(e) => { e.currentTarget.style.background = "var(--ink)"; e.currentTarget.style.color = "white"; }}
-                onMouseLeave={(e) => { e.currentTarget.style.background = "var(--paper)"; e.currentTarget.style.color = "var(--ink)"; }}
-                onFocus={(e) => { e.currentTarget.style.opacity = "1"; }}
-                className="card-quick-view"
-              >
-                Quick View
-              </button>
             </div>
 
             {/* Info */}
@@ -264,165 +229,6 @@ export function CatalogGrid({ products }: Props) {
         ))}
       </div>
 
-      {/* ── Quick View Modal ── */}
-      {active && (
-        <div
-          role="dialog"
-          aria-modal="true"
-          style={{
-            position: "fixed",
-            inset: 0,
-            zIndex: 950,
-            display: "flex",
-            alignItems: "center",
-            justifyContent: "center",
-            background: "rgba(15,14,12,0.5)",
-            backdropFilter: "blur(8px)",
-            padding: "24px",
-          }}
-          onClick={() => setQuickViewSlug(null)}
-        >
-          <div
-            style={{
-              position: "relative",
-              width: "100%",
-              maxWidth: "860px",
-              background: "var(--paper)",
-              border: "1px solid var(--line)",
-              overflow: "hidden",
-              display: "grid",
-              gridTemplateColumns: "1.1fr 0.9fr",
-            }}
-            onClick={(e) => e.stopPropagation()}
-          >
-            {/* Close */}
-            <button
-              onClick={() => setQuickViewSlug(null)}
-              aria-label="Закрыть"
-              style={{
-                position: "absolute",
-                top: "20px",
-                right: "20px",
-                zIndex: 10,
-                background: "var(--paper)",
-                border: "1px solid var(--line)",
-                width: "36px",
-                height: "36px",
-                display: "flex",
-                alignItems: "center",
-                justifyContent: "center",
-                cursor: "pointer",
-                fontSize: "18px",
-                color: "var(--mid)",
-                transition: "color 0.2s, border-color 0.2s",
-              }}
-              onMouseEnter={(e) => { e.currentTarget.style.borderColor = "var(--gold)"; e.currentTarget.style.color = "var(--gold)"; }}
-              onMouseLeave={(e) => { e.currentTarget.style.borderColor = "var(--line)"; e.currentTarget.style.color = "var(--mid)"; }}
-            >
-              ×
-            </button>
-
-            {/* Image */}
-            <div style={{ position: "relative", aspectRatio: "3/4", background: "var(--warm-gray)" }}>
-              <Image
-                src={active.image}
-                alt={active.alt}
-                fill
-                style={{ objectFit: "cover" }}
-                sizes="50vw"
-              />
-            </div>
-
-            {/* Details */}
-            <div style={{ padding: "48px 40px", display: "flex", flexDirection: "column", gap: "20px" }}>
-              <ProductBadge badge={active.badge} />
-
-              <h3
-                style={{
-                  fontFamily: "var(--font-display)",
-                  fontSize: "clamp(24px, 2.5vw, 32px)",
-                  fontWeight: 300,
-                  lineHeight: 1.1,
-                  letterSpacing: "-0.01em",
-                  color: "var(--ink)",
-                }}
-              >
-                {active.title}
-              </h3>
-
-              <p style={{ fontSize: "14px", color: "var(--mid)", lineHeight: 1.8 }}>{active.subtitle}</p>
-
-              <div
-                style={{
-                  fontFamily: "var(--font-display)",
-                  fontSize: "28px",
-                  fontWeight: 400,
-                  color: "var(--ink)",
-                }}
-              >
-                {active.price}
-              </div>
-
-              {parsedSpecs && (
-                <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: "8px" }}>
-                  {parsedSpecs.map((s) => (
-                    <div
-                      key={s.key}
-                      style={{ border: "1px solid var(--line)", padding: "12px 14px", background: "var(--paper)" }}
-                    >
-                      <div style={{ fontSize: "10px", letterSpacing: "0.18em", textTransform: "uppercase", color: "var(--mid)", marginBottom: "2px" }}>
-                        {s.key}
-                      </div>
-                      <div style={{ fontSize: "13px", color: "var(--ink)" }}>{s.value}</div>
-                    </div>
-                  ))}
-                </div>
-              )}
-
-              <div style={{ display: "flex", gap: "12px", marginTop: "auto" }}>
-                <button
-                  style={{
-                    flex: 1,
-                    background: "var(--ink)",
-                    color: "white",
-                    padding: "14px",
-                    fontSize: "11px",
-                    letterSpacing: "0.2em",
-                    textTransform: "uppercase",
-                    fontFamily: "var(--font-body)",
-                    border: "none",
-                    cursor: "pointer",
-                    transition: "background 0.2s",
-                  }}
-                  onMouseEnter={(e) => { e.currentTarget.style.background = "var(--gold)"; }}
-                  onMouseLeave={(e) => { e.currentTarget.style.background = "var(--ink)"; }}
-                >
-                  В корзину
-                </button>
-                <Link
-                  href={`/product/${active.slug}`}
-                  style={{
-                    border: "1px solid var(--ink)",
-                    color: "var(--ink)",
-                    padding: "14px 20px",
-                    fontSize: "11px",
-                    letterSpacing: "0.2em",
-                    textTransform: "uppercase",
-                    fontFamily: "var(--font-body)",
-                    textDecoration: "none",
-                    display: "flex",
-                    alignItems: "center",
-                    transition: "border-color 0.2s, color 0.2s",
-                    whiteSpace: "nowrap",
-                  }}
-                >
-                  Открыть
-                </Link>
-              </div>
-            </div>
-          </div>
-        </div>
-      )}
     </>
   );
 }

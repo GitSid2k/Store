@@ -12358,3 +12358,166 @@
 2026-03-02T18:12:54.241815Z  WARN turborepo_lib::package_changes_watcher: changed_packages: Ok(Some({WorkspacePackage { name: Root, path: AnchoredSystemPathBuf("") }}))
 2026-03-02T18:17:10.541818Z  WARN turborepo_lib::package_changes_watcher: changed_files: {AnchoredSystemPathBuf("apps\\web"), AnchoredSystemPathBuf("apps\\web\\vercel.json")}
 2026-03-02T18:17:10.541831Z  WARN turborepo_lib::package_changes_watcher: changed_packages: Ok(Some({WorkspacePackage { name: Other("@wood-metal/web"), path: AnchoredSystemPathBuf("apps\\web") }}))
+2026-03-02T18:20:48.732785Z  WARN turborepo_lib::package_changes_watcher: changed_files: {AnchoredSystemPathBuf("vercel.json")}
+2026-03-02T18:20:48.732798Z  WARN turborepo_lib::package_changes_watcher: changed_packages: Ok(Some({WorkspacePackage { name: Root, path: AnchoredSystemPathBuf("") }}))
+2026-03-02T18:20:48.834155Z  WARN turborepo_lib::package_changes_watcher: changed_files: {AnchoredSystemPathBuf("")}
+2026-03-02T18:20:48.834170Z  WARN turborepo_lib::package_changes_watcher: changed_packages: Ok(Some({}))
+2026-03-02T18:25:47.235492Z  WARN turborepo_lib::package_changes_watcher: changed_files: {AnchoredSystemPathBuf("deploy-timeweb.sh")}
+2026-03-02T18:25:47.235510Z  WARN turborepo_lib::package_changes_watcher: changed_packages: Ok(Some({WorkspacePackage { name: Root, path: AnchoredSystemPathBuf("") }}))
+2026-03-02T18:25:47.340851Z  WARN turborepo_lib::package_changes_watcher: changed_files: {AnchoredSystemPathBuf("")}
+2026-03-02T18:25:47.340864Z  WARN turborepo_lib::package_changes_watcher: changed_packages: Ok(Some({}))
+2026-03-02T18:26:10.832603Z  WARN turborepo_lib::package_changes_watcher: changed_files: {AnchoredSystemPathBuf("DEPLOY-TIMEWEB.md")}
+2026-03-02T18:26:10.832617Z  WARN turborepo_lib::package_changes_watcher: changed_packages: Ok(Some({WorkspacePackage { name: Root, path: AnchoredSystemPathBuf("") }}))
+2026-03-02T18:26:10.940621Z  WARN turborepo_lib::package_changes_watcher: changed_files: {AnchoredSystemPathBuf("")}
+2026-03-02T18:26:10.940638Z  WARN turborepo_lib::package_changes_watcher: changed_packages: Ok(Some({}))
+2026-03-02T22:40:47.792385Z  WARN turborepo_lib::package_changes_watcher: changed_files: {AnchoredSystemPathBuf("apps\\web"), AnchoredSystemPathBuf("apps\\web\\.turbo")}
+2026-03-02T22:40:47.792415Z  WARN turborepo_lib::package_changes_watcher: changed_packages: Ok(Some({WorkspacePackage { name: Other("@wood-metal/web"), path: AnchoredSystemPathBuf("apps\\web") }}))
+2026-03-02T22:40:49.001523Z  WARN turborepo_lib::package_changes_watcher: changed_files: {AnchoredSystemPathBuf("apps\\web\\.next")}
+2026-03-02T22:40:49.001544Z  WARN turborepo_lib::package_changes_watcher: changed_packages: Ok(Some({WorkspacePackage { name: Other("@wood-metal/web"), path: AnchoredSystemPathBuf("apps\\web") }}))
+2026-03-02T22:40:49.015502Z  WARN turborepo_lib::package_changes_watcher: hashes are the same, no need to rerun
+2026-03-02T22:40:56.089604Z  WARN turborepo_lib::package_changes_watcher: changed_files: {AnchoredSystemPathBuf("apps\\web\\.next")}
+2026-03-02T22:40:56.089616Z  WARN turborepo_lib::package_changes_watcher: changed_packages: Ok(Some({WorkspacePackage { name: Other("@wood-metal/web"), path: AnchoredSystemPathBuf("apps\\web") }}))
+2026-03-02T22:40:56.157434Z  WARN turborepo_lib::package_changes_watcher: hashes are the same, no need to rerun
+2026-03-02T22:40:56.890465Z  WARN turborepo_lib::package_changes_watcher: changed_files: {AnchoredSystemPathBuf("apps\\web\\.next")}
+2026-03-02T22:40:56.890480Z  WARN turborepo_lib::package_changes_watcher: changed_packages: Ok(Some({WorkspacePackage { name: Other("@wood-metal/web"), path: AnchoredSystemPathBuf("apps\\web") }}))
+2026-03-02T22:40:56.993893Z  WARN turborepo_lib::package_changes_watcher: hashes are the same, no need to rerun
+2026-03-02T22:40:58.691827Z  WARN turborepo_lib::package_changes_watcher: changed_files: {AnchoredSystemPathBuf("apps\\web\\.next")}
+2026-03-02T22:40:58.691857Z  WARN turborepo_lib::package_changes_watcher: changed_packages: Ok(Some({WorkspacePackage { name: Other("@wood-metal/web"), path: AnchoredSystemPathBuf("apps\\web") }}))
+2026-03-02T22:40:58.691946Z  WARN turborepo_lib::package_changes_watcher: hashes are the same, no need to rerun
+2026-03-02T22:41:07.200007Z  WARN turborepo_lib::package_changes_watcher: changed_files: {AnchoredSystemPathBuf("apps\\web\\.next")}
+2026-03-02T22:41:07.200025Z  WARN turborepo_lib::package_changes_watcher: changed_packages: Ok(Some({WorkspacePackage { name: Other("@wood-metal/web"), path: AnchoredSystemPathBuf("apps\\web") }}))
+2026-03-02T22:41:07.258363Z  WARN turborepo_lib::package_changes_watcher: hashes are the same, no need to rerun
+2026-03-02T22:41:13.402443Z  WARN turborepo_lib::package_changes_watcher: changed_files: {AnchoredSystemPathBuf("apps\\web\\.next")}
+2026-03-02T22:41:13.402459Z  WARN turborepo_lib::package_changes_watcher: changed_packages: Ok(Some({WorkspacePackage { name: Other("@wood-metal/web"), path: AnchoredSystemPathBuf("apps\\web") }}))
+2026-03-02T22:41:13.588999Z  WARN turborepo_lib::package_changes_watcher: hashes are the same, no need to rerun
+2026-03-02T22:41:14.293475Z  WARN turborepo_lib::package_changes_watcher: changed_files: {AnchoredSystemPathBuf("apps\\web\\.next")}
+2026-03-02T22:41:14.293493Z  WARN turborepo_lib::package_changes_watcher: changed_packages: Ok(Some({WorkspacePackage { name: Other("@wood-metal/web"), path: AnchoredSystemPathBuf("apps\\web") }}))
+2026-03-02T22:41:14.470969Z  WARN turborepo_lib::package_changes_watcher: hashes are the same, no need to rerun
+2026-03-02T22:41:14.471123Z  WARN turborepo_lib::package_changes_watcher: changed_files: {AnchoredSystemPathBuf("apps\\web\\.next")}
+2026-03-02T22:41:14.471134Z  WARN turborepo_lib::package_changes_watcher: changed_packages: Ok(Some({WorkspacePackage { name: Other("@wood-metal/web"), path: AnchoredSystemPathBuf("apps\\web") }}))
+2026-03-02T22:41:14.471186Z  WARN turborepo_lib::package_changes_watcher: hashes are the same, no need to rerun
+2026-03-02T22:41:15.888993Z  WARN turborepo_lib::package_changes_watcher: changed_files: {AnchoredSystemPathBuf("apps\\web\\.next")}
+2026-03-02T22:41:15.889006Z  WARN turborepo_lib::package_changes_watcher: changed_packages: Ok(Some({WorkspacePackage { name: Other("@wood-metal/web"), path: AnchoredSystemPathBuf("apps\\web") }}))
+2026-03-02T22:41:16.200095Z  WARN turborepo_lib::package_changes_watcher: hashes are the same, no need to rerun
+2026-03-02T22:41:16.200235Z  WARN turborepo_lib::package_changes_watcher: changed_files: {AnchoredSystemPathBuf("apps\\web\\.next")}
+2026-03-02T22:41:16.200246Z  WARN turborepo_lib::package_changes_watcher: changed_packages: Ok(Some({WorkspacePackage { name: Other("@wood-metal/web"), path: AnchoredSystemPathBuf("apps\\web") }}))
+2026-03-02T22:41:16.200299Z  WARN turborepo_lib::package_changes_watcher: hashes are the same, no need to rerun
+2026-03-02T22:41:24.890855Z  WARN turborepo_lib::package_changes_watcher: changed_files: {AnchoredSystemPathBuf("apps\\web\\.next")}
+2026-03-02T22:41:24.890873Z  WARN turborepo_lib::package_changes_watcher: changed_packages: Ok(Some({WorkspacePackage { name: Other("@wood-metal/web"), path: AnchoredSystemPathBuf("apps\\web") }}))
+2026-03-02T22:41:25.209393Z  WARN turborepo_lib::package_changes_watcher: hashes are the same, no need to rerun
+2026-03-02T22:41:25.793264Z  WARN turborepo_lib::package_changes_watcher: changed_files: {AnchoredSystemPathBuf("apps\\web\\.next")}
+2026-03-02T22:41:25.793277Z  WARN turborepo_lib::package_changes_watcher: changed_packages: Ok(Some({WorkspacePackage { name: Other("@wood-metal/web"), path: AnchoredSystemPathBuf("apps\\web") }}))
+2026-03-02T22:41:25.826770Z  WARN turborepo_lib::package_changes_watcher: hashes are the same, no need to rerun
+2026-03-02T22:41:39.404368Z  WARN turborepo_lib::package_changes_watcher: changed_files: {AnchoredSystemPathBuf("apps\\web\\next.config.mjs")}
+2026-03-02T22:41:39.404383Z  WARN turborepo_lib::package_changes_watcher: changed_packages: Ok(Some({WorkspacePackage { name: Other("@wood-metal/web"), path: AnchoredSystemPathBuf("apps\\web") }}))
+2026-03-02T22:41:41.803488Z  WARN turborepo_lib::package_changes_watcher: changed_files: {AnchoredSystemPathBuf("apps\\web\\.next")}
+2026-03-02T22:41:41.803504Z  WARN turborepo_lib::package_changes_watcher: changed_packages: Ok(Some({WorkspacePackage { name: Other("@wood-metal/web"), path: AnchoredSystemPathBuf("apps\\web") }}))
+2026-03-02T22:41:42.070808Z  WARN turborepo_lib::package_changes_watcher: hashes are the same, no need to rerun
+2026-03-02T22:41:42.073218Z  WARN turborepo_lib::package_changes_watcher: changed_files: {AnchoredSystemPathBuf("apps\\web\\.next")}
+2026-03-02T22:41:42.073230Z  WARN turborepo_lib::package_changes_watcher: changed_packages: Ok(Some({WorkspacePackage { name: Other("@wood-metal/web"), path: AnchoredSystemPathBuf("apps\\web") }}))
+2026-03-02T22:41:42.073279Z  WARN turborepo_lib::package_changes_watcher: hashes are the same, no need to rerun
+2026-03-02T22:41:43.700748Z  WARN turborepo_lib::package_changes_watcher: changed_files: {AnchoredSystemPathBuf("apps\\web\\.next")}
+2026-03-02T22:41:43.700767Z  WARN turborepo_lib::package_changes_watcher: changed_packages: Ok(Some({WorkspacePackage { name: Other("@wood-metal/web"), path: AnchoredSystemPathBuf("apps\\web") }}))
+2026-03-02T22:41:43.808418Z  WARN turborepo_lib::package_changes_watcher: hashes are the same, no need to rerun
+2026-03-02T22:41:48.100198Z  WARN turborepo_lib::package_changes_watcher: changed_files: {AnchoredSystemPathBuf("apps\\web\\.next")}
+2026-03-02T22:41:48.100212Z  WARN turborepo_lib::package_changes_watcher: changed_packages: Ok(Some({WorkspacePackage { name: Other("@wood-metal/web"), path: AnchoredSystemPathBuf("apps\\web") }}))
+2026-03-02T22:41:48.100260Z  WARN turborepo_lib::package_changes_watcher: hashes are the same, no need to rerun
+2026-03-02T22:41:51.399527Z  WARN turborepo_lib::package_changes_watcher: changed_files: {AnchoredSystemPathBuf("apps\\web\\.next")}
+2026-03-02T22:41:51.399546Z  WARN turborepo_lib::package_changes_watcher: changed_packages: Ok(Some({WorkspacePackage { name: Other("@wood-metal/web"), path: AnchoredSystemPathBuf("apps\\web") }}))
+2026-03-02T22:41:51.464334Z  WARN turborepo_lib::package_changes_watcher: hashes are the same, no need to rerun
+2026-03-02T22:41:51.701066Z  WARN turborepo_lib::package_changes_watcher: changed_files: {AnchoredSystemPathBuf("apps\\web\\.next")}
+2026-03-02T22:41:51.701084Z  WARN turborepo_lib::package_changes_watcher: changed_packages: Ok(Some({WorkspacePackage { name: Other("@wood-metal/web"), path: AnchoredSystemPathBuf("apps\\web") }}))
+2026-03-02T22:41:51.767415Z  WARN turborepo_lib::package_changes_watcher: hashes are the same, no need to rerun
+2026-03-02T22:41:52.189455Z  WARN turborepo_lib::package_changes_watcher: changed_files: {AnchoredSystemPathBuf("apps\\web\\.next")}
+2026-03-02T22:41:52.189472Z  WARN turborepo_lib::package_changes_watcher: changed_packages: Ok(Some({WorkspacePackage { name: Other("@wood-metal/web"), path: AnchoredSystemPathBuf("apps\\web") }}))
+2026-03-02T22:41:52.242351Z  WARN turborepo_lib::package_changes_watcher: hashes are the same, no need to rerun
+2026-03-02T22:41:55.989384Z  WARN turborepo_lib::package_changes_watcher: changed_files: {AnchoredSystemPathBuf("apps\\web\\.next")}
+2026-03-02T22:41:55.989402Z  WARN turborepo_lib::package_changes_watcher: changed_packages: Ok(Some({WorkspacePackage { name: Other("@wood-metal/web"), path: AnchoredSystemPathBuf("apps\\web") }}))
+2026-03-02T22:41:56.117301Z  WARN turborepo_lib::package_changes_watcher: hashes are the same, no need to rerun
+2026-03-02T22:41:56.117795Z  WARN turborepo_lib::package_changes_watcher: changed_files: {AnchoredSystemPathBuf("apps\\web\\.next")}
+2026-03-02T22:41:56.117802Z  WARN turborepo_lib::package_changes_watcher: changed_packages: Ok(Some({WorkspacePackage { name: Other("@wood-metal/web"), path: AnchoredSystemPathBuf("apps\\web") }}))
+2026-03-02T22:41:56.117840Z  WARN turborepo_lib::package_changes_watcher: hashes are the same, no need to rerun
+2026-03-02T22:42:01.291515Z  WARN turborepo_lib::package_changes_watcher: changed_files: {AnchoredSystemPathBuf("apps\\web\\.next")}
+2026-03-02T22:42:01.291531Z  WARN turborepo_lib::package_changes_watcher: changed_packages: Ok(Some({WorkspacePackage { name: Other("@wood-metal/web"), path: AnchoredSystemPathBuf("apps\\web") }}))
+2026-03-02T22:42:01.442445Z  WARN turborepo_lib::package_changes_watcher: hashes are the same, no need to rerun
+2026-03-02T22:42:02.190692Z  WARN turborepo_lib::package_changes_watcher: changed_files: {AnchoredSystemPathBuf("apps\\web\\.next")}
+2026-03-02T22:42:02.190709Z  WARN turborepo_lib::package_changes_watcher: changed_packages: Ok(Some({WorkspacePackage { name: Other("@wood-metal/web"), path: AnchoredSystemPathBuf("apps\\web") }}))
+2026-03-02T22:42:02.460545Z  WARN turborepo_lib::package_changes_watcher: hashes are the same, no need to rerun
+2026-03-02T22:42:02.460751Z  WARN turborepo_lib::package_changes_watcher: changed_files: {AnchoredSystemPathBuf("apps\\web\\.next")}
+2026-03-02T22:42:02.460765Z  WARN turborepo_lib::package_changes_watcher: changed_packages: Ok(Some({WorkspacePackage { name: Other("@wood-metal/web"), path: AnchoredSystemPathBuf("apps\\web") }}))
+2026-03-02T22:42:02.460824Z  WARN turborepo_lib::package_changes_watcher: hashes are the same, no need to rerun
+2026-03-02T22:42:03.791160Z  WARN turborepo_lib::package_changes_watcher: changed_files: {AnchoredSystemPathBuf("apps\\web\\.next")}
+2026-03-02T22:42:03.791176Z  WARN turborepo_lib::package_changes_watcher: changed_packages: Ok(Some({WorkspacePackage { name: Other("@wood-metal/web"), path: AnchoredSystemPathBuf("apps\\web") }}))
+2026-03-02T22:42:04.157699Z  WARN turborepo_lib::package_changes_watcher: hashes are the same, no need to rerun
+2026-03-02T22:42:04.157816Z  WARN turborepo_lib::package_changes_watcher: changed_files: {AnchoredSystemPathBuf("apps\\web\\.next")}
+2026-03-02T22:42:04.157824Z  WARN turborepo_lib::package_changes_watcher: changed_packages: Ok(Some({WorkspacePackage { name: Other("@wood-metal/web"), path: AnchoredSystemPathBuf("apps\\web") }}))
+2026-03-02T22:42:04.157868Z  WARN turborepo_lib::package_changes_watcher: hashes are the same, no need to rerun
+2026-03-02T22:42:08.202514Z  WARN turborepo_lib::package_changes_watcher: changed_files: {AnchoredSystemPathBuf("apps\\web\\.next")}
+2026-03-02T22:42:08.202549Z  WARN turborepo_lib::package_changes_watcher: changed_packages: Ok(Some({WorkspacePackage { name: Other("@wood-metal/web"), path: AnchoredSystemPathBuf("apps\\web") }}))
+2026-03-02T22:42:08.307912Z  WARN turborepo_lib::package_changes_watcher: hashes are the same, no need to rerun
+2026-03-02T22:44:05.591451Z  WARN turborepo_lib::package_changes_watcher: changed_files: {AnchoredSystemPathBuf("packages\\db\\prisma\\schema.prisma")}
+2026-03-02T22:44:05.591461Z  WARN turborepo_lib::package_changes_watcher: changed_packages: Ok(Some({WorkspacePackage { name: Other("@wood-metal/db"), path: AnchoredSystemPathBuf("packages\\db") }}))
+2026-03-02T22:45:47.198308Z  WARN turborepo_lib::package_changes_watcher: changed_files: {AnchoredSystemPathBuf("apps\\web\\app\\(checkout)\\checkout\\page.tsx")}
+2026-03-02T22:45:47.198327Z  WARN turborepo_lib::package_changes_watcher: changed_packages: Ok(Some({WorkspacePackage { name: Other("@wood-metal/web"), path: AnchoredSystemPathBuf("apps\\web") }}))
+2026-03-02T22:45:58.902781Z  WARN turborepo_lib::package_changes_watcher: changed_files: {AnchoredSystemPathBuf("apps\\web\\app\\api\\orders\\route.ts")}
+2026-03-02T22:45:58.902796Z  WARN turborepo_lib::package_changes_watcher: changed_packages: Ok(Some({WorkspacePackage { name: Other("@wood-metal/web"), path: AnchoredSystemPathBuf("apps\\web") }}))
+2026-03-02T22:52:22.595146Z  WARN turborepo_lib::package_changes_watcher: changed_files: {AnchoredSystemPathBuf("apps\\web\\components\\catalog\\grid.tsx")}
+2026-03-02T22:52:22.595159Z  WARN turborepo_lib::package_changes_watcher: changed_packages: Ok(Some({WorkspacePackage { name: Other("@wood-metal/web"), path: AnchoredSystemPathBuf("apps\\web") }}))
+2026-03-02T22:54:03.096569Z  WARN turborepo_lib::package_changes_watcher: changed_files: {AnchoredSystemPathBuf("apps\\web\\app\\api\\admin\\orders\\route.ts")}
+2026-03-02T22:54:03.096586Z  WARN turborepo_lib::package_changes_watcher: changed_packages: Ok(Some({WorkspacePackage { name: Other("@wood-metal/web"), path: AnchoredSystemPathBuf("apps\\web") }}))
+2026-03-02T22:54:30.191798Z  WARN turborepo_lib::package_changes_watcher: changed_files: {AnchoredSystemPathBuf("apps\\web\\app\\admin\\orders\\page.tsx")}
+2026-03-02T22:54:30.191818Z  WARN turborepo_lib::package_changes_watcher: changed_packages: Ok(Some({WorkspacePackage { name: Other("@wood-metal/web"), path: AnchoredSystemPathBuf("apps\\web") }}))
+2026-03-02T22:56:49.725541Z  WARN turborepo_lib::package_changes_watcher: changed_files: {AnchoredSystemPathBuf("apps\\web\\components\\ui\\scroll-to-top.tsx")}
+2026-03-02T22:56:49.725561Z  WARN turborepo_lib::package_changes_watcher: changed_packages: Ok(Some({WorkspacePackage { name: Other("@wood-metal/web"), path: AnchoredSystemPathBuf("apps\\web") }}))
+2026-03-02T22:59:24.294544Z  WARN turborepo_lib::package_changes_watcher: changed_files: {AnchoredSystemPathBuf("apps\\web\\components\\animations\\smooth-scroll.tsx")}
+2026-03-02T22:59:24.294562Z  WARN turborepo_lib::package_changes_watcher: changed_packages: Ok(Some({WorkspacePackage { name: Other("@wood-metal/web"), path: AnchoredSystemPathBuf("apps\\web") }}))
+2026-03-02T23:02:17.296417Z  WARN turborepo_lib::package_changes_watcher: changed_files: {AnchoredSystemPathBuf("apps\\web\\next.config.mjs")}
+2026-03-02T23:02:17.296435Z  WARN turborepo_lib::package_changes_watcher: changed_packages: Ok(Some({WorkspacePackage { name: Other("@wood-metal/web"), path: AnchoredSystemPathBuf("apps\\web") }}))
+2026-03-02T23:02:19.704783Z  WARN turborepo_lib::package_changes_watcher: changed_files: {AnchoredSystemPathBuf("apps\\web\\.next")}
+2026-03-02T23:02:19.704798Z  WARN turborepo_lib::package_changes_watcher: changed_packages: Ok(Some({WorkspacePackage { name: Other("@wood-metal/web"), path: AnchoredSystemPathBuf("apps\\web") }}))
+2026-03-02T23:02:19.922889Z  WARN turborepo_lib::package_changes_watcher: hashes are the same, no need to rerun
+2026-03-02T23:02:19.923278Z  WARN turborepo_lib::package_changes_watcher: changed_files: {AnchoredSystemPathBuf("apps\\web\\.next")}
+2026-03-02T23:02:19.923290Z  WARN turborepo_lib::package_changes_watcher: changed_packages: Ok(Some({WorkspacePackage { name: Other("@wood-metal/web"), path: AnchoredSystemPathBuf("apps\\web") }}))
+2026-03-02T23:02:19.923344Z  WARN turborepo_lib::package_changes_watcher: hashes are the same, no need to rerun
+2026-03-02T23:02:22.292513Z  WARN turborepo_lib::package_changes_watcher: changed_files: {AnchoredSystemPathBuf("apps\\web\\.next")}
+2026-03-02T23:02:22.292530Z  WARN turborepo_lib::package_changes_watcher: changed_packages: Ok(Some({WorkspacePackage { name: Other("@wood-metal/web"), path: AnchoredSystemPathBuf("apps\\web") }}))
+2026-03-02T23:02:23.387385Z  WARN turborepo_lib::package_changes_watcher: hashes are the same, no need to rerun
+2026-03-02T23:02:23.387568Z  WARN turborepo_lib::package_changes_watcher: changed_files: {AnchoredSystemPathBuf("apps\\web\\.next")}
+2026-03-02T23:02:23.387574Z  WARN turborepo_lib::package_changes_watcher: changed_packages: Ok(Some({WorkspacePackage { name: Other("@wood-metal/web"), path: AnchoredSystemPathBuf("apps\\web") }}))
+2026-03-02T23:02:23.387631Z  WARN turborepo_lib::package_changes_watcher: hashes are the same, no need to rerun
+2026-03-02T23:05:31.196590Z  WARN turborepo_lib::package_changes_watcher: changed_files: {AnchoredSystemPathBuf("apps\\web\\components\\ui\\cart-button.tsx")}
+2026-03-02T23:05:31.196607Z  WARN turborepo_lib::package_changes_watcher: changed_packages: Ok(Some({WorkspacePackage { name: Other("@wood-metal/web"), path: AnchoredSystemPathBuf("apps\\web") }}))
+2026-03-02T23:09:05.599327Z  WARN turborepo_lib::package_changes_watcher: changed_files: {AnchoredSystemPathBuf("apps\\web\\components\\ui\\cart-button.tsx")}
+2026-03-02T23:09:05.599541Z  WARN turborepo_lib::package_changes_watcher: changed_packages: Ok(Some({WorkspacePackage { name: Other("@wood-metal/web"), path: AnchoredSystemPathBuf("apps\\web") }}))
+2026-03-02T23:10:16.589573Z  WARN turborepo_lib::package_changes_watcher: changed_files: {AnchoredSystemPathBuf("packages\\db\\prisma")}
+2026-03-02T23:10:16.589591Z  WARN turborepo_lib::package_changes_watcher: changed_packages: Ok(Some({WorkspacePackage { name: Other("@wood-metal/db"), path: AnchoredSystemPathBuf("packages\\db") }}))
+2026-03-02T23:10:16.622897Z  WARN turborepo_lib::package_changes_watcher: hashes are the same, no need to rerun
+2026-03-02T23:18:19.498192Z  WARN turborepo_lib::package_changes_watcher: changed_files: {AnchoredSystemPathBuf("apps\\web\\.next")}
+2026-03-02T23:18:19.498212Z  WARN turborepo_lib::package_changes_watcher: changed_packages: Ok(Some({WorkspacePackage { name: Other("@wood-metal/web"), path: AnchoredSystemPathBuf("apps\\web") }}))
+2026-03-02T23:18:19.516983Z  WARN turborepo_lib::package_changes_watcher: hashes are the same, no need to rerun
+2026-03-02T23:18:22.304164Z  WARN turborepo_lib::package_changes_watcher: changed_files: {AnchoredSystemPathBuf("apps\\web\\.next")}
+2026-03-02T23:18:22.304187Z  WARN turborepo_lib::package_changes_watcher: changed_packages: Ok(Some({WorkspacePackage { name: Other("@wood-metal/web"), path: AnchoredSystemPathBuf("apps\\web") }}))
+2026-03-02T23:18:22.427712Z  WARN turborepo_lib::package_changes_watcher: hashes are the same, no need to rerun
+2026-03-02T23:18:23.000896Z  WARN turborepo_lib::package_changes_watcher: changed_files: {AnchoredSystemPathBuf("apps\\web\\.next")}
+2026-03-02T23:18:23.000916Z  WARN turborepo_lib::package_changes_watcher: changed_packages: Ok(Some({WorkspacePackage { name: Other("@wood-metal/web"), path: AnchoredSystemPathBuf("apps\\web") }}))
+2026-03-02T23:18:23.000994Z  WARN turborepo_lib::package_changes_watcher: hashes are the same, no need to rerun
+2026-03-02T23:18:27.190000Z  WARN turborepo_lib::package_changes_watcher: changed_files: {AnchoredSystemPathBuf("apps\\web\\.next")}
+2026-03-02T23:18:27.190017Z  WARN turborepo_lib::package_changes_watcher: changed_packages: Ok(Some({WorkspacePackage { name: Other("@wood-metal/web"), path: AnchoredSystemPathBuf("apps\\web") }}))
+2026-03-02T23:18:27.275663Z  WARN turborepo_lib::package_changes_watcher: hashes are the same, no need to rerun
+2026-03-02T23:18:32.194235Z  WARN turborepo_lib::package_changes_watcher: changed_files: {AnchoredSystemPathBuf("apps\\web\\.next")}
+2026-03-02T23:18:32.194254Z  WARN turborepo_lib::package_changes_watcher: changed_packages: Ok(Some({WorkspacePackage { name: Other("@wood-metal/web"), path: AnchoredSystemPathBuf("apps\\web") }}))
+2026-03-02T23:18:32.325836Z  WARN turborepo_lib::package_changes_watcher: hashes are the same, no need to rerun
+2026-03-02T23:18:32.992317Z  WARN turborepo_lib::package_changes_watcher: changed_files: {AnchoredSystemPathBuf("apps\\web\\.next")}
+2026-03-02T23:18:32.992334Z  WARN turborepo_lib::package_changes_watcher: changed_packages: Ok(Some({WorkspacePackage { name: Other("@wood-metal/web"), path: AnchoredSystemPathBuf("apps\\web") }}))
+2026-03-02T23:18:33.185622Z  WARN turborepo_lib::package_changes_watcher: hashes are the same, no need to rerun
+2026-03-02T23:18:34.489223Z  WARN turborepo_lib::package_changes_watcher: changed_files: {AnchoredSystemPathBuf("apps\\web\\.next")}
+2026-03-02T23:18:34.489237Z  WARN turborepo_lib::package_changes_watcher: changed_packages: Ok(Some({WorkspacePackage { name: Other("@wood-metal/web"), path: AnchoredSystemPathBuf("apps\\web") }}))
+2026-03-02T23:18:34.772740Z  WARN turborepo_lib::package_changes_watcher: hashes are the same, no need to rerun
+2026-03-02T23:18:34.772833Z  WARN turborepo_lib::package_changes_watcher: changed_files: {AnchoredSystemPathBuf("apps\\web\\.next")}
+2026-03-02T23:18:34.772840Z  WARN turborepo_lib::package_changes_watcher: changed_packages: Ok(Some({WorkspacePackage { name: Other("@wood-metal/web"), path: AnchoredSystemPathBuf("apps\\web") }}))
+2026-03-02T23:18:34.772878Z  WARN turborepo_lib::package_changes_watcher: hashes are the same, no need to rerun
+2026-03-02T23:18:38.590555Z  WARN turborepo_lib::package_changes_watcher: changed_files: {AnchoredSystemPathBuf("apps\\web\\.next")}
+2026-03-02T23:18:38.590576Z  WARN turborepo_lib::package_changes_watcher: changed_packages: Ok(Some({WorkspacePackage { name: Other("@wood-metal/web"), path: AnchoredSystemPathBuf("apps\\web") }}))
+2026-03-02T23:18:38.772313Z  WARN turborepo_lib::package_changes_watcher: hashes are the same, no need to rerun
+2026-03-02T23:39:04.693632Z  WARN turborepo_lib::package_changes_watcher: changed_files: {AnchoredSystemPathBuf("_tmp_50472_34a6fa0f5f9c900282f0f4c817ca24bc"), AnchoredSystemPathBuf("")}
+2026-03-02T23:39:04.693649Z  WARN turborepo_lib::package_changes_watcher: changed_packages: Ok(Some({WorkspacePackage { name: Root, path: AnchoredSystemPathBuf("") }}))
