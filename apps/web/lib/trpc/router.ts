@@ -3,6 +3,7 @@ import { formatPrice, FALLBACK_IMG } from "@/lib/products";
 import { z } from "zod";
 
 const productCardSelect = {
+  id: true,
   slug: true,
   name: true,
   description: true,
@@ -82,6 +83,7 @@ export const appRouter = router({
           select: productCardSelect,
         });
         return items.map((p) => ({
+          id: p.id,
           slug: p.slug,
           title: p.name,
           subtitle: p.description ?? "",
@@ -103,6 +105,7 @@ export const appRouter = router({
       });
       if (!p) return null;
       return {
+        id: p.id,
         slug: p.slug,
         title: p.name,
         subtitle: p.description ?? "",

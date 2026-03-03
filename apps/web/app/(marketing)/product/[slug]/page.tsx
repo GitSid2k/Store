@@ -104,6 +104,7 @@ export default async function ProductPage({ params }: { params: { slug: string }
 
           {/* Interactive: qty + cart + tabs */}
           <ProductInteractive
+            id={product.id}
             badge={product.badge}
             specs={specs}
             slug={product.slug}

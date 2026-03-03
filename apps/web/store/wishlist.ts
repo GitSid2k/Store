@@ -4,6 +4,7 @@ import { create } from "zustand";
 import { persist } from "zustand/middleware";
 
 export type WishlistItem = {
+  id: string;
   slug: string;
   title: string;
   price: string;

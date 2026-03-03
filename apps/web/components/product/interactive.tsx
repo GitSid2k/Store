@@ -9,6 +9,7 @@ type Spec = { key: string; value: string };
 type Review = { rating: number; comment: string | null; createdAt: Date | string };
 
 type Props = {
+  id: string;
   badge: string;
   specs: Spec[];
   slug: string;
@@ -25,7 +26,7 @@ type Props = {
 const TABS = ["Описание", "Характеристики", "Отзывы"] as const;
 
 export function ProductInteractive({
-  badge, specs, slug, title, price, image, alt,
+  id, badge, specs, slug, title, price, image, alt,
   description, ratingAvg, ratingCount, reviews = [],
 }: Props) {
   const add = useCart((s) => s.add);
@@ -110,7 +111,7 @@ export function ProductInteractive({
         </button>
 
         <WishlistButton
-          item={{ slug, title, price: priceFormatted, image, alt }}
+          item={{ id, slug, title, price: priceFormatted, image, alt }}
           size="md"
         />
 

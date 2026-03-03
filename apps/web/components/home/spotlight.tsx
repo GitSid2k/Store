@@ -5,6 +5,7 @@ import Image from "next/image";
 import { WishlistButton } from "@/components/ui/wishlist-button";
 
 export type SpotlightProduct = {
+  id: string;
   slug: string;
   title: string;
   subtitle: string;
@@ -77,7 +78,7 @@ export function HomeSpotlight({ products }: { products: SpotlightProduct[] }) {
               {STATUS_BADGE[item.badge] ?? item.badge}
             </div>
             <div style={{ position: "absolute", top: "12px", right: "12px", zIndex: 2 }}>
-              <WishlistButton item={{ slug: item.slug, title: item.title, price: item.price, image: item.image, alt: item.alt }} size="sm" />
+              <WishlistButton item={{ id: item.id, slug: item.slug, title: item.title, price: item.price, image: item.image, alt: item.alt }} size="sm" />
             </div>
           </div>
 
